@@ -16,7 +16,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 
 
-class MainActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         val varBtnMasuk: Button = findViewById(R.id.buttonMasuk)
         val varImgViewShowPass: ImageView = findViewById(R.id.imageViewShowPassword)
         val varTvRegister: TextView = findViewById(R.id.textViewDaftar)
+        val varTvLupaPassword: TextView = findViewById(R.id.textViewLupaPassword)
 
         passwordToggle(varEtPassword,varImgViewShowPass)
 
@@ -56,6 +57,12 @@ class MainActivity : AppCompatActivity() {
 
         varTvRegister.setOnClickListener(View.OnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+            finish()
+        })
+
+        varTvLupaPassword.setOnClickListener(View.OnClickListener {
+            val intent = Intent(this, ForgotPasswordActivity::class.java)
             startActivity(intent)
             finish()
         })
