@@ -1,9 +1,13 @@
 package com.example.mobileapplication
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Rect
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 
 import android.view.MotionEvent
@@ -23,6 +27,10 @@ class MainActivity : AppCompatActivity() {
         val varEtPassword: EditText = findViewById(R.id.editTextKataSandi)
         val varTvPasswordHandle: TextView = findViewById(R.id.textViewKataSandiHandle)
         val varBtnMasuk: Button = findViewById(R.id.buttonMasuk)
+        val varImgViewShowPass: ImageView = findViewById(R.id.imageViewShowPassword)
+        val varTvRegister: TextView = findViewById(R.id.textViewDaftar)
+
+        passwordToggle(varEtPassword,varImgViewShowPass)
 
         varBtnMasuk.setOnClickListener(View.OnClickListener {
             if(varEtNim.getText().toString() == "Admin" && varEtPassword.getText().toString() == "Admin") {
@@ -45,6 +53,24 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+
+        varTvRegister.setOnClickListener(View.OnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+            finish()
+        })
+    }
+
+    fun passwordToggle(editText: EditText, imageView: ImageView) {
+        imageView.setOnClickListener {
+            if (editText.transformationMethod == null) {
+                editText.transformationMethod = PasswordTransformationMethod.getInstance()
+                imageView.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+            } else {
+                editText.transformationMethod = null
+                imageView.setImageResource(R.drawable.ic_baseline_visibility_24)
+            }
+        }
     }
 
     override fun dispatchTouchEvent(event: MotionEvent): Boolean {
