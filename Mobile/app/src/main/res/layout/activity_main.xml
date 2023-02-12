@@ -79,7 +79,7 @@
                 android:id="@+id/editTextNIM"
                 android:hint="NIM"
                 android:maxLength="9"
-                android:inputType="number"
+                android:inputType="numberPassword"
                 android:paddingLeft="20dp"
                 android:background="@drawable/edit_text_custom_selector"/>
 
