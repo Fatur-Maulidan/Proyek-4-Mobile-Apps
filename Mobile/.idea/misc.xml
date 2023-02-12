@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/drawable/bg_custom_circle.xml" value="0.12264957264957264" />
         <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/drawable/button_custom_masuk.xml" value="0.11153846153846154" />
         <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/drawable/button_custom_masuk_onclick.xml" value="0.11153846153846154" />
         <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/drawable/button_custom_selector.xml" value="0.11153846153846154" />
@@ -19,7 +20,7 @@
         <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/drawable/toast_custom_failed.xml" value="0.10213675213675213" />
         <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/drawable/toast_custom_success.xml" value="0.10213675213675213" />
         <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/layout/activity_forgot_password.xml" value="0.1" />
-        <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/layout/activity_register.xml" value="0.1" />
         <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/layout/activity_splash_screen.xml" value="0.152" />
         <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/layout/toast_custom_layout_failed.xml" value="0.4" />
