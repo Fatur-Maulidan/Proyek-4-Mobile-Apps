@@ -31,11 +31,15 @@ class LoginActivity : AppCompatActivity() {
         val varTvRegister: TextView = findViewById(R.id.textViewDaftar)
         val varTvLupaPassword: TextView = findViewById(R.id.textViewLupaPassword)
 
+//      Pemanggilan untuk hide/unhide password
         passwordToggle(varEtPassword,varImgViewShowPass)
 
+//      Ketika button masuk diklik
         varBtnMasuk.setOnClickListener(View.OnClickListener {
-            if(varEtNim.getText().toString() == "Admin" && varEtPassword.getText().toString() == "Admin") {
+            if(varEtNim.getText().toString() == "211511020" && varEtPassword.getText().toString() == "Admin") {
                 showCustomToast("Berhasil Login", R.layout.toast_custom_layout_success)
+                val intent = Intent(this, ForgotPasswordActivity::class.java)
+                startActivity(intent)
                 varTvNimHandle.setText("")
                 varTvPasswordHandle.setText("")
             }
@@ -55,19 +59,20 @@ class LoginActivity : AppCompatActivity() {
 
         })
 
+//      Ketika text daftar diklik
         varTvRegister.setOnClickListener(View.OnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
-            finish()
         })
 
+//      Ketika text LupaPassword diklik
         varTvLupaPassword.setOnClickListener(View.OnClickListener {
             val intent = Intent(this, ForgotPasswordActivity::class.java)
             startActivity(intent)
-            finish()
         })
     }
 
+//  Fungsi untuk hide/unhide password
     fun passwordToggle(editText: EditText, imageView: ImageView) {
         imageView.setOnClickListener {
             if (editText.transformationMethod == null) {
@@ -80,6 +85,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+//  Fungsi untuk keluar dari editText
     override fun dispatchTouchEvent(event: MotionEvent): Boolean {
         if (event.action == MotionEvent.ACTION_DOWN) {
             val v: View? = currentFocus
