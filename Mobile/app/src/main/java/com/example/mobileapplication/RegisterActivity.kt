@@ -43,10 +43,11 @@ class RegisterActivity : DispatchTouchEvent() {
         customLayout.passwordToggle(varEtKonfirmasiKataSandi, varImgViewShowPass2)
 
         varBtnDaftar.setOnClickListener(View.OnClickListener {
-            if(!customLayout.isEditTextEmpty(varEtNama,varEtNim,varEtEmail,varEtKataSandi,varEtKonfirmasiKataSandi)){
+            if(!customLayout.isEditTextEmpty(varEtNama,varEtNim,varEtEmail,varEtKataSandi,varEtKonfirmasiKataSandi)) {
+                customLayout.showCustomToast("Registrasi Berhasil", R.layout.toast_custom_layout_success)
                 startActivity(Intent(this, LoginActivity::class.java))
+                finishAffinity()
             }
-
             if (varEtNama.text.isEmpty()) varTvNama.text = "NAMA TIDAK BOLEH KOSONG"
             else {
                 if (varEtNama.text.contains("^[ A-Za-z]+\$")) varTvNama.text = "NAMA HANYA BOLEH MENGGUNAKAN ALFABET DAN SPASI"
@@ -83,6 +84,7 @@ class RegisterActivity : DispatchTouchEvent() {
                     varTvKonfirmasiKataSandi.text = null
                 }
             }
+            customLayout.showCustomToast("Form Tidak Boleh Kosong", R.layout.toast_custom_layout_failed)
         })
     }
 }

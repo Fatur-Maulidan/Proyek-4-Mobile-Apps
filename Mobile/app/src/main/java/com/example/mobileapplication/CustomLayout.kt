@@ -1,5 +1,6 @@
 package com.example.mobileapplication
 
+import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Rect
 import android.text.method.PasswordTransformationMethod
@@ -11,6 +12,8 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 
 class CustomLayout(private val context: Context) {
     //  Fungsi untuk hide/unhide password
@@ -44,7 +47,6 @@ class CustomLayout(private val context: Context) {
                 isEmpty = true
             }
         }
-        showCustomToast("Form Tidak Boleh Kosong", R.layout.toast_custom_layout_failed)
         return isEmpty
     }
 }

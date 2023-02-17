@@ -1,5 +1,6 @@
 package com.example.mobileapplication
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 
@@ -62,5 +63,10 @@ class LoginActivity : DispatchTouchEvent() {
         varTvLupaPassword.setOnClickListener(View.OnClickListener {
             startActivity(Intent(this, ForgotPasswordActivity::class.java))
         })
+    }
+
+    override fun onBackPressed() {
+        var custom = CustomLayout(applicationContext)
+        custom.showAlertDialog()
     }
 }
