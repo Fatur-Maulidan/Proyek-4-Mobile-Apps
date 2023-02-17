@@ -1,5 +1,6 @@
 package com.example.mobileapplication
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
 import android.view.View
@@ -9,10 +10,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
-class RegisterActivity : AppCompatActivity() {
+class RegisterActivity : DispatchTouchEvent() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+
+        val customLayout = CustomLayout(applicationContext)
 
         // editText Variables
         val varEtNama: EditText = findViewById(R.id.editTextNama)
@@ -36,71 +39,41 @@ class RegisterActivity : AppCompatActivity() {
         val varImgViewShowPass1: ImageView = findViewById(R.id.imageViewShowPassword1)
         val varImgViewShowPass2: ImageView = findViewById(R.id.imageViewShowPassword2)
 
-        fun passwordToggle(editText: EditText, imageView: ImageView) {
-            imageView.setOnClickListener {
-                if (editText.transformationMethod == null) {
-                    editText.transformationMethod = PasswordTransformationMethod.getInstance()
-                    imageView.setImageResource(R.drawable.ic_baseline_visibility_off_24)
-                } else {
-                    editText.transformationMethod = null
-                    imageView.setImageResource(R.drawable.ic_baseline_visibility_24)
-                }
-            }
-        }
-
-        passwordToggle(varEtKataSandi, varImgViewShowPass1)
-        passwordToggle(varEtKonfirmasiKataSandi, varImgViewShowPass2)
+        customLayout.passwordToggle(varEtKataSandi, varImgViewShowPass1)
+        customLayout.passwordToggle(varEtKonfirmasiKataSandi, varImgViewShowPass2)
 
         varBtnDaftar.setOnClickListener(View.OnClickListener {
-            // Handle untuk nama
-            varTvNama.text =
-                if (varEtNama.text.toString().isEmpty()) "NAMA TIDAK BOLEH KOSONG" else null
+            if(!customLayout.isEditTextEmpty(varEtNama,varEtNim,varEtEmail,varEtKataSandi,varEtKonfirmasiKataSandi)){
+                startActivity(Intent(this, LoginActivity::class.java))
+            }
 
-            if (varEtNama.text.toString().isEmpty()) {
-                varTvNama.text = "NAMA TIDAK BOLEH KOSONG"
-            } else {
-                // Experimental
-                if (varEtNama.text.contains("^[ A-Za-z]+\$")) {
-                    varTvNama.text = "NAMA HANYA BOLEH MENGGUNAKAN ALFABET DAN SPASI"
-                } else {
-                    varTvNama.text = null
-                }
+            if (varEtNama.text.isEmpty()) varTvNama.text = "NAMA TIDAK BOLEH KOSONG"
+            else {
+                if (varEtNama.text.contains("^[ A-Za-z]+\$")) varTvNama.text = "NAMA HANYA BOLEH MENGGUNAKAN ALFABET DAN SPASI"
+                else varTvNama.text = null
             }
 
             // Handle untuk NIM
-            if (varEtNim.text.toString().isEmpty()) {
-                varTvNIM.text = "NIM TIDAK BOLEH KOSONG"
-            } else {
-                if (varEtNim.text.length < 9) {
-                    varTvNIM.text = "NIM HARUS BERJUMLAH 9 DIGIT"
-                } else {
-                    varTvNIM.text = null
-                }
+            if (varEtNim.text.toString().isEmpty()) varTvNIM.text = "NIM TIDAK BOLEH KOSONG"
+            else {
+                if (varEtNim.text.length < 9) varTvNIM.text = "NIM HARUS BERJUMLAH 9 DIGIT"
+                else varTvNIM.text = null
             }
 
             // Handle untuk e-mail
-            if (varEtEmail.text.toString().isEmpty()) {
-                varTvEmail.text = "E-MAIL TIDAK BOLEH KOSONG"
-            } else {
+            if (varEtEmail.text.isEmpty()) varTvEmail.text = "E-MAIL TIDAK BOLEH KOSONG"
+            else {
                 var isEmailValid: (String, String) -> Boolean =
                     { email: String, emailParameter: String -> email.contains(emailParameter) }
-                if (!isEmailValid(varEtEmail.text.toString(), "polban.ac.id")) {
-                    varTvEmail.text = "WAJIB MENGGUNAKAN E-MAIL POLBAN"
-                } else {
-                    varTvEmail.text = null
-                }
+                if (!isEmailValid(varEtEmail.text.toString(), "polban.ac.id")) varTvEmail.text = "WAJIB MENGGUNAKAN E-MAIL POLBAN"
+                else varTvEmail.text = null
             }
 
             // Handle untuk kata sandi
-            varTvKataSandi.text =
-                if (varEtKataSandi.text.toString()
-                        .isEmpty()
-                ) "KATA SANDI TIDAK BOLEH KOSONG" else null
+            varTvKataSandi.text = if (varEtKataSandi.text.toString().isEmpty()) "KATA SANDI TIDAK BOLEH KOSONG" else null
 
             // Handle untuk konfirmasi kata sandi
-            when {
-                varEtKonfirmasiKataSandi.text.toString()
-                    .isEmpty() -> {
+            when {varEtKonfirmasiKataSandi.text.toString().isEmpty() -> {
                     varTvKonfirmasiKataSandi.text = "MASUKAN KONFIRMASI KATA SANDI"
                 }
                 varEtKataSandi.text.toString() != varEtKonfirmasiKataSandi.text.toString() -> {
