@@ -1,4 +1,4 @@
-package com.example.mobileapplication
+package CustomClass
 
 import android.content.Context
 import android.graphics.Rect
@@ -8,13 +8,9 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import com.example.mobileapplication.R
 
 open class DispatchTouchEvent : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_dispatch_touch_event)
-    }
-
     //  Fungsi untuk keluar dari editText
     override fun dispatchTouchEvent(event: MotionEvent): Boolean {
         if (event.action == MotionEvent.ACTION_DOWN) {

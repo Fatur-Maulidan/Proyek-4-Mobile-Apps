@@ -1,19 +1,14 @@
-package com.example.mobileapplication
+package CustomClass
 
-import android.app.AlertDialog
 import android.content.Context
-import android.graphics.Rect
 import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
+import com.example.mobileapplication.R
 
 class CustomLayout(private val context: Context) {
     //  Fungsi untuk hide/unhide password

@@ -1,18 +1,20 @@
 package com.example.mobileapplication
 
-import android.app.AlertDialog
+import CustomClass.*
+import CustomInterface.ExitApps
+import CustomInterface.onBackExitPressed
 import android.content.Intent
 import android.os.Bundle
-
 import android.view.View
 import android.widget.*
 
 
-class LoginActivity : DispatchTouchEvent() {
+class LoginActivity : DispatchTouchEvent(), ExitApps {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+//      Variabel objek untuk mengambil fungsi dari CustomLayout
         val customLayout = CustomLayout(applicationContext)
 
 //      Deklarasi Variabel dari Layout
@@ -37,19 +39,20 @@ class LoginActivity : DispatchTouchEvent() {
             if(varEtNim.getText().toString() == "211511020" && varEtPassword.getText().toString() == "Admin") {
                 customLayout.showCustomToast("Berhasil Login", R.layout.toast_custom_layout_success)
                 startActivity(Intent(this, ForgotPasswordActivity::class.java))
-                varTvNimHandle.setText("")
-                varTvPasswordHandle.setText("")
+                varTvNimHandle.text = null
+                varTvPasswordHandle.text = null
+                finishAffinity()
             }
-            else if(varEtNim.getText().toString() == "" || varEtPassword.getText().toString() == "") {
-                if (varEtNim.getText().toString() != "") varTvNimHandle.setText("")
-                else varTvNimHandle.setText("Nim harus diisi")
-                if (varEtPassword.getText().toString() != "") varTvPasswordHandle.setText("")
-                else varTvPasswordHandle.setText("Kata sandi harus diisi")
+            else if(varEtNim.text.isEmpty() || varEtPassword.text.isEmpty()) {
+                if (!varEtNim.text.isEmpty()) varTvNimHandle.text = null
+                else varTvNimHandle.text = "Nim harus diisi"
+                if (varEtPassword.text.isEmpty()) varTvPasswordHandle.text = null
+                else varTvPasswordHandle.text = "Kata sandi harus diisi"
                 customLayout.showCustomToast("Kolom NIM dan Kata Sandi Wajib Diisi!", R.layout.toast_custom_layout_failed)
             }
-            else if(varEtNim.getText().toString() != "Admin" || varEtPassword.getText().toString() != "Admin"){
-                varTvPasswordHandle.setText("")
-                varTvNimHandle.setText("")
+            else{
+                varTvPasswordHandle.text = null
+                varTvNimHandle.text = null
                 customLayout.showCustomToast("Akun tidak terdaftar",R.layout.toast_custom_layout_failed)
             }
         })
@@ -65,8 +68,8 @@ class LoginActivity : DispatchTouchEvent() {
         })
     }
 
-    override fun onBackPressed() {
-        var custom = CustomLayout(applicationContext)
-        custom.showAlertDialog()
+//  Override dari fungsi onBackPressed diisi dengan fungsi yang ada pada interface
+    override fun onBackPressed(){
+        onBackExitPressed(this)
     }
 }

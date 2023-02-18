@@ -10,7 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MobileApplication">
         <activity
-            android:name=".DispatchTouchEvent"
+            android:name="CustomClass.ExitApps"
+            android:exported="true" />
+        <activity
+            android:name="CustomClass.ExitApps"
+            android:exported="true" />
+        <activity
+            android:name="CustomClass.DispatchTouchEvent"
             android:exported="true" />
         <activity
             android:name=".ForgotPasswordActivity"
