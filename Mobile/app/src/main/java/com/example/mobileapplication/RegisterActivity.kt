@@ -45,48 +45,43 @@ class RegisterActivity : DispatchTouchEvent() {
 
         // Ketika button Daftar di tekan
         varBtnDaftar.setOnClickListener(View.OnClickListener {
-            if(!customLayout.isEditTextEmpty(varEtNama,varEtNim,varEtEmail,varEtKataSandi,varEtKonfirmasiKataSandi)) {
-                customLayout.showCustomToast("Registrasi Berhasil", R.layout.toast_custom_layout_success)
-                startActivity(Intent(this, LoginActivity::class.java))
-                finishAffinity()
-            }
+            var isEmailValid: (String, String) -> Boolean =
+                { email: String, emailParameter: String -> email.contains(emailParameter) }
+
             if (varEtNama.text.isEmpty()) varTvNama.text = "Nama tidak boleh kosong"
             else {
-                if (varEtNama.text.contains("^[ A-Za-z]+\$")) varTvNama.text = "NAMA HANYA BOLEH MENGGUNAKAN ALFABET DAN SPASI"
-                else varTvNama.text = null
+                if (varEtNama.text.contains("^[ A-Za-z]+\$")) varTvNama.text = "Nama hanya boleh menggunakan alphabet dan spasi"
+                else varTvNama.text = ""
             }
 
             // Handle untuk NIM
-            if (varEtNim.text.toString().isEmpty()) varTvNIM.text = "NIM tidak boleh kosong"
+            if (varEtNim.text.isEmpty()) varTvNIM.text = "Nim tidak boleh kosong"
             else {
                 if (varEtNim.text.length < 9) varTvNIM.text = "NIM harus berjumlah 9 digit"
-                else varTvNIM.text = null
+                else varTvNIM.text = ""
             }
 
             // Handle untuk e-mail
             if (varEtEmail.text.isEmpty()) varTvEmail.text = "E-Mail tidak boleh kosong"
             else {
-                var isEmailValid: (String, String) -> Boolean =
-                    { email: String, emailParameter: String -> email.contains(emailParameter) }
                 if (!isEmailValid(varEtEmail.text.toString(), "polban.ac.id")) varTvEmail.text = "Wajib Menggunakan E-Mail POLBAN"
-                else varTvEmail.text = null
+                else varTvEmail.text = ""
             }
 
             // Handle untuk kata sandi
-            varTvKataSandi.text = if (varEtKataSandi.text.toString().isEmpty()) "Kata sandi tidak boleh kosong" else null
+            if (varEtKataSandi.text.isEmpty()) varTvKataSandi.text = "Kata sandi tidak boleh kosong" else varTvKataSandi.text = ""
 
             // Handle untuk konfirmasi kata sandi
-            when {varEtKonfirmasiKataSandi.text.toString().isEmpty() -> {
-                    varTvKonfirmasiKataSandi.text = "Masukan konfirmasi Kata Sandi"
-                }
-                varEtKataSandi.text.toString() != varEtKonfirmasiKataSandi.text.toString() -> {
-                    varTvKonfirmasiKataSandi.text = "Kata Sandi tidak cocok"
-                }
-                else -> {
-                    varTvKonfirmasiKataSandi.text = null
-                }
+            when {varEtKonfirmasiKataSandi.text.isEmpty() -> {varTvKonfirmasiKataSandi.text = "Masukan konfirmasi Kata Sandi"}
+                varEtKataSandi.text.toString() != varEtKonfirmasiKataSandi.text.toString() -> {varTvKonfirmasiKataSandi.text = "Kata Sandi tidak cocok"}
+                else -> varTvKonfirmasiKataSandi.text = ""}
+
+            if(customLayout.isEditTextInputEmpty(varEtNama,varEtNim,varEtEmail,varEtKataSandi,varEtKonfirmasiKataSandi) == false) customLayout.showCustomToast("Form tidak boleh kosong", R.layout.toast_custom_layout_failed)
+            else if (varTvNama.text.toString() == "" && varTvNIM.text.toString() == "" && varTvEmail.text.toString() == "" && varTvKataSandi.text.toString() == "" && varTvKonfirmasiKataSandi.text.toString() == "" && customLayout.isEditTextInputEmpty(varEtNama,varEtNim,varEtEmail,varEtKataSandi,varEtKonfirmasiKataSandi)){
+                customLayout.showCustomToast("Registrasi Berhasil", R.layout.toast_custom_layout_success)
+                startActivity(Intent(this, RegisterActivitySuccess::class.java))
+                finishAffinity()
             }
-            customLayout.showCustomToast("Form Tidak Boleh Kosong", R.layout.toast_custom_layout_failed)
         })
     }
 }

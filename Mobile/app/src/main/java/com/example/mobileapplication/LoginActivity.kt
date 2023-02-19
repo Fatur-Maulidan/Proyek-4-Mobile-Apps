@@ -46,7 +46,7 @@ class LoginActivity : DispatchTouchEvent(), ExitApps {
             else if(varEtNim.text.isEmpty() || varEtPassword.text.isEmpty()) {
                 if (!varEtNim.text.isEmpty()) varTvNimHandle.text = null
                 else varTvNimHandle.text = "Nim harus diisi"
-                if (varEtPassword.text.isEmpty()) varTvPasswordHandle.text = null
+                if (!varEtPassword.text.isEmpty()) varTvPasswordHandle.text = null
                 else varTvPasswordHandle.text = "Kata sandi harus diisi"
                 customLayout.showCustomToast("Kolom NIM dan Kata Sandi Wajib Diisi!", R.layout.toast_custom_layout_failed)
             }

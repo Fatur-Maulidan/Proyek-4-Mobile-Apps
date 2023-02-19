@@ -10,22 +10,32 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MobileApplication">
         <activity
-            android:name="CustomClass.ExitApps"
+            android:name=".ResetPasswordActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
-            android:name="CustomClass.ExitApps"
+            android:name=".ForgotPasswordSuccessActivity"
+            android:screenOrientation="portrait"
+            android:exported="true" />
+        <activity
+            android:name=".RegisterActivitySuccess"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name="CustomClass.DispatchTouchEvent"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".ForgotPasswordActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".RegisterActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".SplashScreen"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,6 +45,7 @@
         </activity>
         <activity
             android:name=".LoginActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
     </application>
 

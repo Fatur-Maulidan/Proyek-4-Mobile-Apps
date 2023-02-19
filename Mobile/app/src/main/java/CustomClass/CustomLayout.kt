@@ -35,13 +35,12 @@ class CustomLayout(private val context: Context) {
         toast.show()
     }
 
-    fun isEditTextEmpty(vararg editTexts: EditText): Boolean {
-        var isEmpty = false
+    fun isEditTextInputEmpty(vararg editTexts: EditText): Boolean {
         for (editText in editTexts) {
             if (editText.text.toString().trim().isEmpty()) {
-                isEmpty = true
+                return false
             }
         }
-        return isEmpty
+        return true
     }
 }
