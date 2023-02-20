@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_marginBottom="20dp"
     tools:context=".RegisterActivity">
 
     <RelativeLayout
@@ -78,6 +79,37 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent">
 
+                <!-- Field untuk NIM -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/editTextNIM"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/edit_text_custom_selector"
+                        android:hint="NIM"
+                        android:inputType="number"
+                        android:maxLength="9"
+                        android:paddingLeft="20dp" />
+
+                    <TextView
+                        android:id="@+id/textViewNIMHandle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:paddingLeft="5dp"
+                        android:textColor="#DC2626" />
+
+                </LinearLayout>
+
                 <!-- Field untuk Nama -->
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -108,7 +140,7 @@
 
                 </LinearLayout>
 
-                <!-- Field untuk NIM -->
+                <!-- Field untuk Jurusan -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -116,23 +148,70 @@
                     android:layout_marginRight="20dp"
                     android:orientation="vertical">
 
-                    <EditText
-                        android:id="@+id/editTextNIM"
+                    <Spinner
+                        android:id="@+id/spinnerJurusan"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:background="@drawable/edit_text_custom_selector"
-                        android:hint="NIM"
-                        android:inputType="number"
-                        android:maxLength="9"
-                        android:paddingLeft="20dp" />
+                        android:background="@drawable/spinner_custom_selector"/>
 
                     <TextView
-                        android:id="@+id/textViewNIMHandle"
+                        android:id="@+id/textViewJurusanHandle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="2dp"
-                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:paddingLeft="5dp"
+                        android:textColor="#DC2626" />
+
+                </LinearLayout>
+
+                <!-- Field untuk Program Studi -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:orientation="vertical">
+
+                    <Spinner
+                        android:id="@+id/spinnerProgramStudi"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/spinner_custom_selector"/>
+
+                    <TextView
+                        android:id="@+id/textViewProgramStudiHandle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:paddingLeft="5dp"
+                        android:textColor="#DC2626" />
+
+                </LinearLayout>
+
+                <!-- Field untuk Angkatan -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:orientation="vertical">
+
+                    <Spinner
+                        android:id="@+id/spinnerAngkatan"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/spinner_custom_selector"/>
+
+                    <TextView
+                        android:id="@+id/textViewAngkatanHandle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="2dp"
                         android:fontFamily="@font/poppins_regular"
                         android:paddingLeft="5dp"
                         android:textColor="#DC2626" />
