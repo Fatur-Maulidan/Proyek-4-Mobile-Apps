@@ -1,5 +1,36 @@
 <resources>
     <string name="app_name">Repositori TA POLBAN</string>
+<<<<<<< HEAD
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+=======
+
+    <string-array name="jurusan">
+        <item>Jurusan</item>
+        <item>Teknik Sipil</item>
+        <item>Teknik Mesin</item>
+        <item>Teknik Refrigerasi dan Tata Udara</item>
+        <item>Teknik Konversi Energi</item>
+        <item>Teknik Elektro</item>
+        <item>Teknik Kimia</item>
+        <item>Teknik Komputer dan Informatika</item>
+        <item>Akuntansi</item>
+        <item>Administrasi Niaga</item>
+        <item>Bahasa Inggris</item>
+    </string-array>
+
+    <string-array name="program_studi">
+        <item>Program Studi</item>
+        <item>D3 Teknik Informatika</item>
+        <item>D4 Teknik Informatika</item>
+    </string-array>
+
+    <string-array name="angkatan">
+        <item>Angkatan</item>
+        <item>2019</item>
+        <item>2020</item>
+        <item>2021</item>
+        <item>2022</item>
+    </string-array>
+>>>>>>> ea303f3aef0872d81388cd891d1a1e30803bb27b
 </resources>

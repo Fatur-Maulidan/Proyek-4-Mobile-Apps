@@ -6,10 +6,7 @@ import android.content.Intent
 import android.media.Image
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 
 class RegisterActivity : DispatchTouchEvent() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +32,11 @@ class RegisterActivity : DispatchTouchEvent() {
         val varTvKonfirmasiKataSandi: TextView =
             findViewById(R.id.textViewKonfirmasiKataSandiHandle)
 
+        // spinner
+        val varSpJurusan: Spinner = findViewById(R.id.spinnerJurusan)
+        val varSpProdi: Spinner = findViewById(R.id.spinnerProgramStudi)
+        val varSpAngkatan: Spinner = findViewById(R.id.spinnerAngkatan)
+
         // button Variable
         val varBtnDaftar: Button = findViewById(R.id.buttonDaftar)
 
@@ -47,6 +49,9 @@ class RegisterActivity : DispatchTouchEvent() {
         // Icon Toggle hide/unhide password
         customLayout.passwordToggle(varEtKataSandi, varImgViewShowPass1)
         customLayout.passwordToggle(varEtKonfirmasiKataSandi, varImgViewShowPass2)
+
+        // menset data spinner
+        setUpSpinner(varSpJurusan, varSpProdi, varSpAngkatan)
 
         // Ketika button Daftar di tekan
         varBtnDaftar.setOnClickListener(View.OnClickListener {
@@ -88,5 +93,41 @@ class RegisterActivity : DispatchTouchEvent() {
                 finishAffinity()
             }
         })
+    }
+
+    private fun setUpSpinner(spJurusan: Spinner, spProdi: Spinner, spAngkatan: Spinner) {
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.jurusan,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner
+            spJurusan.adapter = adapter
+        }
+
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.program_studi,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner
+            spProdi.adapter = adapter
+        }
+
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.angkatan,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner
+            spAngkatan.adapter = adapter
+        }
     }
 }
