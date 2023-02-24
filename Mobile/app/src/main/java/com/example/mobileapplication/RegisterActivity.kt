@@ -13,7 +13,7 @@ class RegisterActivity : DispatchTouchEvent() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-//      Instansiasi dari class CustomLayout
+//      Instansiasi Objek dari class CustomLayout
         val customLayout = CustomLayout(applicationContext)
 
         // editText Variables
@@ -45,7 +45,9 @@ class RegisterActivity : DispatchTouchEvent() {
         val varImgTopBackground: ImageView = findViewById(R.id.imageTopBackgroundRegister)
 
         // Custom Background Dinamic Ratio
+//--> Fungsi ini masih uji coba
         customLayout.resizeAndSetImage(varImgTopBackground,R.drawable.register_page_ellipse)
+//-->
 
         // Icon Toggle hide/unhide password
         customLayout.passwordToggle(varEtKataSandi, varImgViewShowPass1)

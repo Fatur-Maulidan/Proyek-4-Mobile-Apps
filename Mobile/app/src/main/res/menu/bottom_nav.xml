@@ -8,5 +8,6 @@
     <item
         android:title="Form"
         android:id="@+id/formBotNavBar"
+        android:icon="@drawable/form_page_icon"
         />
 </menu>

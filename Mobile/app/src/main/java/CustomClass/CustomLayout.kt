@@ -29,6 +29,7 @@ class CustomLayout(private val context: Context) {
         }
     }
 
+    //  Fungsi untuk memunculkan Custom Pop Up Message
     fun showCustomToast(textInput: String, toast_custom: Int) {
         val inflater: LayoutInflater = LayoutInflater.from(context)
         val layout: View = inflater.inflate(toast_custom, null)
@@ -40,6 +41,7 @@ class CustomLayout(private val context: Context) {
         toast.show()
     }
 
+//  Fungsi untuk cek apakah semua editText kosong
     fun isEditTextInputEmpty(vararg editTexts: EditText): Boolean {
         for (editText in editTexts) {
             if (editText.text.toString().trim().isEmpty()) {
@@ -49,6 +51,15 @@ class CustomLayout(private val context: Context) {
         return true
     }
 
+//  Fungsi untuk Clear TextView
+    fun setTextViewNull(vararg textViews: TextView){
+        for (textView in textViews){
+            textView.text = null
+        }
+    }
+
+//  Fungsi ini untuk resize imageView yang ada pada bagian atas setiap masing - masing page
+//--> Fungsi ini masih uji coba
     fun resizeAndSetImage(imageView: ImageView, imageResourceId: Int) {
         // Mendapatkan ukuran layar
         val screenWidth = imageView.resources.displayMetrics.widthPixels
@@ -80,4 +91,6 @@ class CustomLayout(private val context: Context) {
         // Menampilkan gambar pada ImageView
         imageView.setImageBitmap(newImageBitmap)
     }
+//-->
+
 }

@@ -38,10 +38,11 @@ class LoginActivity : DispatchTouchEvent(), ExitApps {
 //      Pemanggilan untuk hide/unhide password
         customLayout.passwordToggle(varEtPassword,varImgViewShowPass)
 
-//      Deklarasi Variabel image view
+//      Deklarasi Variabel imageView
         val varImgTopLogin: ImageView = findViewById(R.id.image)
 
-//--> Di Bagian ini hanya untuk test
+//      Fungsi untuk resize imageView menjadi lebih dinamis diikuti dengan ratio yang ada
+//--> Di Bagian ini masih test
         customLayout.resizeAndSetImage(varImgTopLogin, R.drawable.login_page_ellipse)
 //-->
 
@@ -50,20 +51,16 @@ class LoginActivity : DispatchTouchEvent(), ExitApps {
             if(varEtNim.getText().toString() == "211511020" && varEtPassword.getText().toString() == "Admin") {
                 customLayout.showCustomToast("Berhasil Login", R.layout.toast_custom_layout_success)
                 startActivity(Intent(this, HomeActivity::class.java))
-                varTvNimHandle.text = null
-                varTvPasswordHandle.text = null
+                customLayout.setTextViewNull(varTvNimHandle,varTvPasswordHandle)
                 finishAffinity()
             }
             else if(varEtNim.text.isEmpty() || varEtPassword.text.isEmpty()) {
-                if (!varEtNim.text.isEmpty()) varTvNimHandle.text = null
-                else varTvNimHandle.text = "Nim harus diisi"
-                if (!varEtPassword.text.isEmpty()) varTvPasswordHandle.text = null
-                else varTvPasswordHandle.text = "Kata sandi harus diisi"
+                when {!varEtNim.text.isEmpty() -> {varTvNimHandle.text = null} else -> {varTvNimHandle.text = "Nim harus diisi"}}
+                when {!varEtPassword.text.isEmpty() -> {varTvPasswordHandle.text = null} else -> {varTvPasswordHandle.text = "Kata sandi harus diisi"}}
                 customLayout.showCustomToast("Kolom NIM dan Kata Sandi Wajib Diisi!", R.layout.toast_custom_layout_failed)
             }
             else{
-                varTvPasswordHandle.text = null
-                varTvNimHandle.text = null
+                customLayout.setTextViewNull(varTvNimHandle,varTvPasswordHandle)
                 customLayout.showCustomToast("Akun tidak terdaftar",R.layout.toast_custom_layout_failed)
             }
         })

@@ -10,9 +10,14 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+//      Instansiasi Objek dari class CustomLayout
         val customLayout = CustomLayout(applicationContext)
 
+//      Variabel untuk deklarasikan image layout menjadi image variabel
         val image: ImageView = findViewById(R.id.imageTopBackgroundHome)
+
+//-->   Fungsi ini masih uji coba
         customLayout.resizeAndSetImage(image,R.drawable.home_page_ellipse)
+//-->
     }
 }

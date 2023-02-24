@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 
 interface ExitApps {
+//  Fungsi akan dijalankan ketika kita klik tombol back pada aplikasi
     fun onBackPressed()
 }
 
