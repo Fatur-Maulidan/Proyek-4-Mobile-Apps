@@ -5,6 +5,7 @@ import CustomInterface.ExitApps
 import CustomInterface.onBackExitPressed
 import android.content.Intent
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.View
 import android.widget.*
 
@@ -14,8 +15,12 @@ class LoginActivity : DispatchTouchEvent(), ExitApps {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-//      Variabel objek untuk mengambil fungsi dari CustomLayout
+        // Variabel objek untuk mengambil fungsi dari CustomLayout
         val customLayout = CustomLayout(applicationContext)
+
+        val image: ImageView = findViewById(R.id.image)
+
+//        customLayout.customBackground(image)
 
 //      Deklarasi Variabel dari Layout
         val varEtNim: EditText = findViewById(R.id.editTextNIM)
@@ -34,11 +39,13 @@ class LoginActivity : DispatchTouchEvent(), ExitApps {
 //      Pemanggilan untuk hide/unhide password
         customLayout.passwordToggle(varEtPassword,varImgViewShowPass)
 
+        customLayout.customBackground(image,windowManager)
+
 //      Ketika button masuk diklik
         varBtnMasuk.setOnClickListener(View.OnClickListener {
             if(varEtNim.getText().toString() == "211511020" && varEtPassword.getText().toString() == "Admin") {
                 customLayout.showCustomToast("Berhasil Login", R.layout.toast_custom_layout_success)
-                startActivity(Intent(this, ForgotPasswordActivity::class.java))
+                startActivity(Intent(this, HomeActivity::class.java))
                 varTvNimHandle.text = null
                 varTvPasswordHandle.text = null
                 finishAffinity()

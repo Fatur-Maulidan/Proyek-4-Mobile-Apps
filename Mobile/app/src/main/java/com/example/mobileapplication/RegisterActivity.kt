@@ -3,6 +3,7 @@ package com.example.mobileapplication
 import CustomClass.CustomLayout
 import CustomClass.DispatchTouchEvent
 import android.content.Intent
+import android.media.Image
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -16,6 +17,8 @@ class RegisterActivity : DispatchTouchEvent() {
         setContentView(R.layout.activity_register)
 
         val customLayout = CustomLayout(applicationContext)
+
+        val image: ImageView = findViewById(R.id.imageTopBackgroundRegister)
 
         // editText Variables
         val varEtNama: EditText = findViewById(R.id.editTextNama)
@@ -38,6 +41,8 @@ class RegisterActivity : DispatchTouchEvent() {
         // imageView Variable
         val varImgViewShowPass1: ImageView = findViewById(R.id.imageViewShowPassword1)
         val varImgViewShowPass2: ImageView = findViewById(R.id.imageViewShowPassword2)
+
+        customLayout.customBackground(image,windowManager)
 
         // Icon Toggle hide/unhide password
         customLayout.passwordToggle(varEtKataSandi, varImgViewShowPass1)
