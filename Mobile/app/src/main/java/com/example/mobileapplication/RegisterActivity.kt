@@ -13,9 +13,8 @@ class RegisterActivity : DispatchTouchEvent() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
+//      Instansiasi dari class CustomLayout
         val customLayout = CustomLayout(applicationContext)
-
-        val image: ImageView = findViewById(R.id.imageTopBackgroundRegister)
 
         // editText Variables
         val varEtNama: EditText = findViewById(R.id.editTextNama)
@@ -32,7 +31,7 @@ class RegisterActivity : DispatchTouchEvent() {
         val varTvKonfirmasiKataSandi: TextView =
             findViewById(R.id.textViewKonfirmasiKataSandiHandle)
 
-        // spinner
+        // spinner Variabel
         val varSpJurusan: Spinner = findViewById(R.id.spinnerJurusan)
         val varSpProdi: Spinner = findViewById(R.id.spinnerProgramStudi)
         val varSpAngkatan: Spinner = findViewById(R.id.spinnerAngkatan)
@@ -43,8 +42,10 @@ class RegisterActivity : DispatchTouchEvent() {
         // imageView Variable
         val varImgViewShowPass1: ImageView = findViewById(R.id.imageViewShowPassword1)
         val varImgViewShowPass2: ImageView = findViewById(R.id.imageViewShowPassword2)
+        val varImgTopBackground: ImageView = findViewById(R.id.imageTopBackgroundRegister)
 
-        customLayout.customBackground(image,windowManager)
+        // Custom Background Dinamic Ratio
+        customLayout.resizeAndSetImage(varImgTopBackground,R.drawable.register_page_ellipse)
 
         // Icon Toggle hide/unhide password
         customLayout.passwordToggle(varEtKataSandi, varImgViewShowPass1)

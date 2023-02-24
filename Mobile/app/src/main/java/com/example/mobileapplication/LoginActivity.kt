@@ -4,6 +4,9 @@ import CustomClass.*
 import CustomInterface.ExitApps
 import CustomInterface.onBackExitPressed
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.media.Image
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.View
@@ -15,12 +18,8 @@ class LoginActivity : DispatchTouchEvent(), ExitApps {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        // Variabel objek untuk mengambil fungsi dari CustomLayout
+//      Variabel objek untuk mengambil fungsi dari CustomLayout
         val customLayout = CustomLayout(applicationContext)
-
-        val image: ImageView = findViewById(R.id.image)
-
-//        customLayout.customBackground(image)
 
 //      Deklarasi Variabel dari Layout
         val varEtNim: EditText = findViewById(R.id.editTextNIM)
@@ -39,7 +38,12 @@ class LoginActivity : DispatchTouchEvent(), ExitApps {
 //      Pemanggilan untuk hide/unhide password
         customLayout.passwordToggle(varEtPassword,varImgViewShowPass)
 
-        customLayout.customBackground(image,windowManager)
+//      Deklarasi Variabel image view
+        val varImgTopLogin: ImageView = findViewById(R.id.image)
+
+//--> Di Bagian ini hanya untuk test
+        customLayout.resizeAndSetImage(varImgTopLogin, R.drawable.login_page_ellipse)
+//-->
 
 //      Ketika button masuk diklik
         varBtnMasuk.setOnClickListener(View.OnClickListener {

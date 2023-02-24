@@ -13,6 +13,6 @@ class HomeActivity : AppCompatActivity() {
         val customLayout = CustomLayout(applicationContext)
 
         val image: ImageView = findViewById(R.id.imageTopBackgroundHome)
-        customLayout.customBackground(image,windowManager)
+        customLayout.resizeAndSetImage(image,R.drawable.home_page_ellipse)
     }
 }

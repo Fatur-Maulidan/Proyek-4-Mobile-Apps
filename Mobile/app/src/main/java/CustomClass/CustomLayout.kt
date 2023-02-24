@@ -1,6 +1,8 @@
 package CustomClass
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.text.method.PasswordTransformationMethod
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
@@ -47,13 +49,35 @@ class CustomLayout(private val context: Context) {
         return true
     }
 
-    fun customBackground(image: ImageView, windowManager: WindowManager){
-        // Mengatur gambar latar belakang agar sesuai dengan ukuran layar
-        val displayMetrics = DisplayMetrics()
-        windowManager.defaultDisplay.getMetrics(displayMetrics)
-        val screenWidth = displayMetrics.widthPixels
-        val screenHeight = displayMetrics.heightPixels
-        val aspectRatio = screenWidth.toFloat() / screenHeight.toFloat()
-        image.layoutParams.width = (screenWidth / aspectRatio).toInt()
+    fun resizeAndSetImage(imageView: ImageView, imageResourceId: Int) {
+        // Mendapatkan ukuran layar
+        val screenWidth = imageView.resources.displayMetrics.widthPixels
+        val screenHeight = imageView.resources.displayMetrics.heightPixels
+
+        // Mendapatkan bitmap dari sumber gambar
+        val options = BitmapFactory.Options()
+        options.inJustDecodeBounds = true
+        BitmapFactory.decodeResource(imageView.resources, imageResourceId, options)
+        val originalWidth = options.outWidth
+        val originalHeight = options.outHeight
+        val aspectRatio = originalWidth.toFloat() / originalHeight.toFloat()
+
+        // Menentukan ukuran gambar baru dengan mempertahankan rasio aspek gambar asli
+        val newWidth: Int
+        val newHeight: Int
+        if (originalWidth > originalHeight) {
+            newWidth = screenWidth
+            newHeight = (screenWidth / aspectRatio).toInt()
+        } else {
+            newWidth = (screenHeight * aspectRatio).toInt()
+            newHeight = screenHeight
+        }
+
+        // Membuat bitmap baru dengan ukuran yang disesuaikan
+        val myImageBitmap = BitmapFactory.decodeResource(imageView.resources, imageResourceId)
+        val newImageBitmap = Bitmap.createScaledBitmap(myImageBitmap, newWidth, newHeight, false)
+
+        // Menampilkan gambar pada ImageView
+        imageView.setImageBitmap(newImageBitmap)
     }
 }
