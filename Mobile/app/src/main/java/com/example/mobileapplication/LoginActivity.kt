@@ -3,23 +3,33 @@ package com.example.mobileapplication
 import CustomClass.*
 import CustomInterface.ExitApps
 import CustomInterface.onBackExitPressed
+import HandlerCustom.FileHandler
+import KeyStore.CryptoManager
+import KeyStore.Preferences
+import Model.*
+import Retrofit.ApiEndpoint
+import Retrofit.ApiService
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.media.Image
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.View
 import android.widget.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.File
+import java.io.FileOutputStream
 
 
 class LoginActivity : DispatchTouchEvent(), ExitApps {
+    val preferences = Preferences()
+    val cryptoManager = CryptoManager()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-//      Variabel objek untuk mengambil fungsi dari CustomLayout
         val customLayout = CustomLayout(applicationContext)
+        val fileHandler = FileHandler()
 
 //      Deklarasi Variabel dari Layout
         val varEtNim: EditText = findViewById(R.id.editTextNIM)
@@ -48,11 +58,9 @@ class LoginActivity : DispatchTouchEvent(), ExitApps {
 
 //      Ketika button masuk diklik
         varBtnMasuk.setOnClickListener(View.OnClickListener {
-            if(varEtNim.getText().toString() == "211511020" && varEtPassword.getText().toString() == "Admin") {
-                customLayout.showCustomToast("Berhasil Login", R.layout.toast_custom_layout_success)
-                startActivity(Intent(this, HomeActivity::class.java))
+            if(!varEtNim.getText().toString().equals("") && !varEtPassword.getText().toString().equals("")) {
+                loginAuth(loginForm(varEtNim.text.toString(),varEtPassword.text.toString()), fileHandler.checkFileIsExits(File(filesDir, "secret.txt")))
                 customLayout.setTextViewNull(varTvNimHandle,varTvPasswordHandle)
-                finishAffinity()
             }
             else if(varEtNim.text.isEmpty() || varEtPassword.text.isEmpty()) {
                 when {!varEtNim.text.isEmpty() -> {varTvNimHandle.text = null} else -> {varTvNimHandle.text = "Nim harus diisi"}}
@@ -79,5 +87,42 @@ class LoginActivity : DispatchTouchEvent(), ExitApps {
 //  Override dari fungsi onBackPressed diisi dengan fungsi yang ada pada interface
     override fun onBackPressed(){
         onBackExitPressed(this)
+    }
+
+    private fun loginForm(nim: String, password: String): MahasiswaAktif{
+        val mahasiswaAktif = MahasiswaAktif()
+        mahasiswaAktif.nim = nim
+        mahasiswaAktif.password = password
+
+        return mahasiswaAktif
+    }
+
+    private fun loginAuth(mahasiswaAktif: MahasiswaAktif, fos: FileOutputStream){
+        val customLayout = CustomLayout(applicationContext)
+
+        val apiService = ApiService().endPoint().create(ApiEndpoint::class.java)
+        apiService.postLogin(mahasiswaAktif).enqueue(object :
+            Callback<ResponseMahasiswaAktif> {
+            override fun onResponse(call: Call<ResponseMahasiswaAktif>, response: Response<ResponseMahasiswaAktif>) {
+                val mahasiswaResponse = response.body()
+                if(mahasiswaResponse != null){
+                    preferences.setToken(applicationContext, mahasiswaResponse?.token.toString())
+                    mahasiswaResponse?.token?.encodeToByteArray()?.let {
+                        cryptoManager.encrypt(
+                            bytes = it,
+                            outputStream = fos
+                        ).decodeToString()
+                    }
+                    customLayout.showCustomToast("Berhasil Login",R.layout.toast_custom_layout_success)
+                    startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
+                    finishAffinity()
+                } else {
+                    customLayout.showCustomToast("Akun tidak terdaftar",R.layout.toast_custom_layout_failed)
+                }
+            }
+            override fun onFailure(call: Call<ResponseMahasiswaAktif>, t: Throwable) {
+                customLayout.showCustomToast(t.localizedMessage,R.layout.toast_custom_layout_failed)
+            }
+        })
     }
 }

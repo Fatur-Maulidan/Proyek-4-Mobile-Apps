@@ -133,4 +133,6 @@ class RegisterActivity : DispatchTouchEvent() {
             spAngkatan.adapter = adapter
         }
     }
+
+    private fun
 }
