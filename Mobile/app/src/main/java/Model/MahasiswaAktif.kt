@@ -18,14 +18,14 @@ class MahasiswaAktif{
     @field:SerializedName("program_studi")
     var program_studi: String? = null
 
-    @field:SerializedName("prodi")
-    var prodi: String? = null
-
     @field:SerializedName("angkatan")
-    var angkatan: Int = 0
+    var angkatan: String? = null
 
     @field:SerializedName("email")
     var email: String? = null
+
+    @field:SerializedName("password_confirmation")
+    var password_confirmation: String? = null
 }
 
 class ResponseMahasiswaAktif {
@@ -37,4 +37,9 @@ class ResponseMahasiswaAktif {
 
     @SerializedName("token")
     var token: String? = null
+}
+
+class ResponseMessage {
+    @SerializedName("message")
+    var message: String? = null
 }

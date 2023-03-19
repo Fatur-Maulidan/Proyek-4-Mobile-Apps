@@ -113,7 +113,7 @@ class LoginActivity : DispatchTouchEvent(), ExitApps {
                             outputStream = fos
                         ).decodeToString()
                     }
-                    customLayout.showCustomToast("Berhasil Login",R.layout.toast_custom_layout_success)
+                    customLayout.showCustomToast(mahasiswaResponse?.message.toString(),R.layout.toast_custom_layout_success)
                     startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
                     finishAffinity()
                 } else {
