@@ -17,8 +17,8 @@
 
     <string-array name="program_studi">
         <item>Program Studi</item>
-        <item>D3 Teknik Informatika</item>
-        <item>D4 Teknik Informatika</item>
+        <item>D3</item>
+        <item>D4</item>
     </string-array>
 
     <string-array name="angkatan">

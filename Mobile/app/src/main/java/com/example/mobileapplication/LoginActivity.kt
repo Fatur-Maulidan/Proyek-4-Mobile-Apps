@@ -89,6 +89,7 @@ class LoginActivity : DispatchTouchEvent(), ExitApps {
         onBackExitPressed(this)
     }
 
+//  Form penyimpanan sementara dengan menggunkan data dari model
     private fun loginForm(nim: String, password: String): MahasiswaAktif{
         val mahasiswaAktif = MahasiswaAktif()
         mahasiswaAktif.nim = nim
@@ -97,9 +98,9 @@ class LoginActivity : DispatchTouchEvent(), ExitApps {
         return mahasiswaAktif
     }
 
+//  Authentikasi untuk proses login
     private fun loginAuth(mahasiswaAktif: MahasiswaAktif, fos: FileOutputStream){
         val customLayout = CustomLayout(applicationContext)
-
         val apiService = ApiService().endPoint().create(ApiEndpoint::class.java)
         apiService.postLogin(mahasiswaAktif).enqueue(object :
             Callback<ResponseMahasiswaAktif> {

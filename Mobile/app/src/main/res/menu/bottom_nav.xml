@@ -7,7 +7,7 @@
         android:icon="@drawable/home_circle_icon" />
     <item
         android:title="Peminjaman"
-        android:id="@+id/formBotNavBar"
+        android:id="@+id/peminjamanBotNavBar"
         android:icon="@drawable/form_page_icon"
         />
 </menu>
