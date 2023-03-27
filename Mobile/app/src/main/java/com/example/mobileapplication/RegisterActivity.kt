@@ -168,7 +168,6 @@ class RegisterActivity : DispatchTouchEvent() {
             inputArray[count] = inputs
             count += 1
         }
-
         mahasiswaAktif.nim = inputArray[0]
         mahasiswaAktif.nama = inputArray[1]
         mahasiswaAktif.jurusan = inputArray[2]
@@ -183,9 +182,7 @@ class RegisterActivity : DispatchTouchEvent() {
 
     private fun registerAuth(mahasiswaAktif: MahasiswaAktif){
         val customLayout = CustomLayout(applicationContext)
-
-        Log.d("RegisterActivity","test")
-
+        mahasiswaAktif.angkatan?.toString()?.let { Log.d("RegisterActivity", it) }
         val apiService = ApiService().endPoint().create(ApiEndpoint::class.java)
         apiService.postRegister(mahasiswaAktif).enqueue(object : Callback<ResponseMessage> {
             override fun onResponse(call: Call<ResponseMessage>, response: Response<ResponseMessage>) {
