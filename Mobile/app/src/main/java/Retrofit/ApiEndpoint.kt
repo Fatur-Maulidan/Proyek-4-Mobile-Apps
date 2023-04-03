@@ -1,9 +1,6 @@
 package Retrofit
 
-import Model.MahasiswaAktif
-import Model.PostResponse
-import Model.ResponseMahasiswaAktif
-import Model.ResponseMessage
+import Model.*
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -22,4 +19,7 @@ interface ApiEndpoint {
 
     @GET("posts")
     fun getPosts(): Call<ArrayList<PostResponse>>
+
+    @POST("auth/forgot-password")
+    fun forgotPassword(@Body requestBody: ForgotPasswordRequest): Call<MessageResponse>
 }
