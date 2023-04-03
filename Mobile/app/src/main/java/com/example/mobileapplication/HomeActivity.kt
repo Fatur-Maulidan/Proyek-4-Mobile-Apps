@@ -28,7 +28,6 @@ class HomeActivity : DispatchTouchEvent() {
 
                 }
             }
-
             true
         }
     }
