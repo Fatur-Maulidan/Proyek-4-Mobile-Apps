@@ -8,4 +8,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="soft_blue">#FF0284c7</color>
+    <color name="icon_navigation_bar">@color/bottom_custom_icon_navigation_bar</color>
 </resources>

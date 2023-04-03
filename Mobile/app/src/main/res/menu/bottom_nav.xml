@@ -4,7 +4,8 @@
     <item
         android:title="Beranda"
         android:id="@+id/homeBotNavBar"
-        android:icon="@drawable/home_circle_icon" />
+        android:icon="@drawable/home_circle_icon"
+        />
     <item
         android:title="Peminjaman"
         android:id="@+id/peminjamanBotNavBar"

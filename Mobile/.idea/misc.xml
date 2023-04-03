@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/drawable/baseline_arrow_drop_down_24.xml" value="0.14444444444444443" />
         <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/drawable/bg_custom_circle.xml" value="0.12264957264957264" />
+        <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/drawable/bottom_custom_icon_navigation_bar.xml" value="0.12136752136752137" />
         <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/drawable/bottom_custom_navigation_bar.xml" value="0.10128205128205128" />
         <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/drawable/button_custom_masuk.xml" value="0.11153846153846154" />
         <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/drawable/button_custom_masuk_default.xml" value="0.11153846153846154" />
@@ -32,9 +33,11 @@
         <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/layout/activity_custom_layout.xml" value="0.1" />
         <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/layout/activity_dispatch_touch_event.xml" value="0.1" />
         <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/layout/activity_exit_apps.xml" value="0.1" />
+        <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/layout/activity_final_task_page.xml" value="0.2" />
         <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/layout/activity_forgot_password.xml" value="0.25" />
         <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/layout/activity_forgot_password_success.xml" value="0.1" />
-        <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/layout/activity_home.xml" value="0.2" />
+        <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/layout/activity_home.xml" value="0.2894736842105263" />
+        <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/layout/activity_lend_page.xml" value="0.1952991452991453" />
         <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/layout/activity_login.xml" value="0.176" />
         <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/layout/activity_register.xml" value="0.136" />
@@ -44,6 +47,7 @@
         <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/layout/activity_tugas_akhir_page.xml" value="0.1" />
         <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/layout/fragment_form.xml" value="0.1" />
         <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/layout/fragment_lend.xml" value="0.264" />
         <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/layout/item_row_tugas_akhir.xml" value="0.2" />
         <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/layout/toast_custom_layout_failed.xml" value="0.4" />
         <entry key="..\:/School/Polban/Teknik Komputer dan Informatika/Matkul/Semester 4/WS/Proyek 4/Proyek-4-Mobile-Apps/Mobile/app/src/main/res/layout/toast_custom_layout_success.xml" value="0.1" />
