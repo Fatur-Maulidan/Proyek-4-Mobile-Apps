@@ -5,11 +5,14 @@ import CustomInterface.RecyclerViewInterface
 import Model.PostResponse
 import Retrofit.ApiEndpoint
 import Retrofit.ApiService
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_home.*
 import retrofit2.Call
@@ -56,10 +59,19 @@ class Home : Fragment(), RecyclerViewInterface {
                 call: Call<ArrayList<PostResponse>>,
                 response: Response<ArrayList<PostResponse>>
             ) {
-                val responseCode: String = response.code().toString()
-                response.body()?.let { list.addAll(it) }
-                val adapter = PostAdapter(list)
-                contentView.adapter = adapter
+                if(response.isSuccessful){
+                    val adapter = PostAdapter(response.body()!!)
+                    adapter.setOnItemClickListener(object : PostAdapter.OnItemClickListener{
+                        override fun onItemClick(position: Int) {
+                            val clickedPosition = response.body()?.get(position)
+                            val intent = Intent(activity, FinalTaskPageActivity::class.java)
+                            intent.putExtra("title", clickedPosition?.title)
+                            intent.putExtra("text", clickedPosition?.text)
+                            startActivity(intent)
+                        }
+                    })
+                    contentView.adapter = adapter
+                }
             }
 
             override fun onFailure(call: Call<ArrayList<PostResponse>>, t: Throwable) {

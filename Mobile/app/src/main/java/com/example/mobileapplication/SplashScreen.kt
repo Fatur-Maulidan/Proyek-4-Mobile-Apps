@@ -19,10 +19,9 @@ class SplashScreen : AppCompatActivity() {
         val preferences = Preferences()
         val cryptoManager = CryptoManager()
 
-
         Handler(Looper.getMainLooper()).postDelayed({
             if(preferences.getToken(applicationContext).equals("")){
-                startActivity(Intent(this, LoginActivity::class.java))
+                startActivity(Intent(this, HomeActivity::class.java))
                 finishAffinity()
             } else if (preferences.getToken(applicationContext)
                     .equals(cryptoManager.decrypt(

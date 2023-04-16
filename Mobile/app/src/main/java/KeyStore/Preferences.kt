@@ -5,6 +5,9 @@ import android.content.SharedPreferences
 
 class Preferences {
     private val KEY_TOKEN = "KEY_TOKEN"
+    private val JURUSAN = "JURUSAN"
+    private val PRODI = "PRODI"
+
 
     fun setToken(context: Context, token: String) {
         val editor = getSharedPreferences(context).edit()
@@ -14,6 +17,26 @@ class Preferences {
 
     fun getToken(context: Context): String? {
         return getSharedPreferences(context).getString(KEY_TOKEN, "")
+    }
+
+    fun setJurusan(context: Context, jurusan: String) {
+        val editor = getSharedPreferences(context).edit()
+        editor.putString(JURUSAN, jurusan)
+        editor.apply()
+    }
+
+    fun getJurusan(context: Context): String? {
+        return getSharedPreferences(context).getString(JURUSAN, "")
+    }
+
+    fun setProdi(context: Context, prodi: String) {
+        val editor = getSharedPreferences(context).edit()
+        editor.putString(PRODI, prodi)
+        editor.apply()
+    }
+
+    fun getProdi(context: Context): String? {
+        return getSharedPreferences(context).getString(PRODI, "")
     }
 
     private fun getSharedPreferences(context: Context): SharedPreferences {

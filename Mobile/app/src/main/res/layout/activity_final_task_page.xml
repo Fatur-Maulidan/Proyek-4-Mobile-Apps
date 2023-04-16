@@ -32,25 +32,32 @@
             app:layout_constraintRight_toRightOf="parent">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
                 <TextView
+                    android:id="@+id/tvTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_bold"
                     android:text="Lorem"
                     android:textColor="@color/white"
-                    android:textSize="30dp" />
+                    android:textSize="20dp" />
 
                 <TextView
+                    android:id="@+id/tvText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/poppins_regular"
+                    android:maxLines="1"
                     android:text="Ipsum"
                     android:textColor="@color/white"
-                    android:fontFamily="@font/poppins_regular"
-                    android:textSize="14dp"/>
+                    android:textSize="14dp" />
             </LinearLayout>
         </RelativeLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -59,17 +66,13 @@
 
 <!-- Content -->
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_gravity="center_vertical">
-
-            <ScrollView
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_gravity="center_vertical">
 
                 <!-- AUTHOR -->
                 <RelativeLayout
@@ -177,7 +180,6 @@
 
                     </ScrollView>
                 </RelativeLayout>
-            </ScrollView>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 <!-- End Content-->
 </LinearLayout>

@@ -18,32 +18,39 @@
             android:layout_height="match_parent">
 
             <ImageView
+                android:id="@+id/imageViewContent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/content_custom_selector"/>
+                android:background="@drawable/content_custom_selector" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
                 android:gravity="center_vertical"
-                android:layout_marginLeft="20dp">
+                android:orientation="vertical">
+
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Judul"
                     android:id="@+id/title"
-                    android:fontFamily="@font/poppins_bold"
-                    android:textColor="@color/black"
-                    android:textSize="20dp"
-                    />
-                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Jurusan"
-                    android:id="@+id/jurusan"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/poppins_bold"
+                    android:maxLines="2"
+                    android:text="Judul"
                     android:textColor="@color/black"
-                    android:textSize="14dp"/>
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/jurusan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="Jurusan"
+                    android:textColor="@color/black"
+                    android:textSize="13dp" />
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
