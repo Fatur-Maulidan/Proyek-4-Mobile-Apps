@@ -35,4 +35,9 @@
         <item>Jurusan</item>
         <item>Prodi</item>
     </string-array>
+
+    <string name="notification_channel_name">My Notification Channel</string>
+    <string name="notification_channel_description">This is my notification channel</string>
+    <string name="notification_title">PDF Download</string>
+    <string name="notification_text">PDF file has been downloaded</string>
 </resources>

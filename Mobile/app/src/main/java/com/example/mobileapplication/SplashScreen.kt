@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import KeyStore.Preferences
+import android.util.Log
 import java.io.File
 import java.io.FileInputStream
 
@@ -20,15 +21,20 @@ class SplashScreen : AppCompatActivity() {
         val cryptoManager = CryptoManager()
 
         Handler(Looper.getMainLooper()).postDelayed({
-            if(preferences.getToken(applicationContext).equals("")){
-                startActivity(Intent(this, HomeActivity::class.java))
+            if(preferences.getToken(applicationContext) == null){
+                startActivity(Intent(this, LoginActivity::class.java))
                 finishAffinity()
+//            } else if (preferences.getToken(applicationContext) != null) {
+//                startActivity(Intent(this, HomeActivity::class.java))
+//                finishAffinity()
+
             } else if (preferences.getToken(applicationContext)
                     .equals(cryptoManager.decrypt(
                         inputStream = FileInputStream(File(filesDir, "secret.txt"))
                     ).decodeToString())) {
                 startActivity(Intent(this, HomeActivity::class.java))
                 finishAffinity()
+
             } else {
                 startActivity(Intent(this, LoginActivity::class.java))
                 finishAffinity()

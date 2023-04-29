@@ -1,7 +1,6 @@
 package CustomClass
 
-import Model.PostResponse
-import android.util.Log
+import Model.TugasAkhir
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,12 +8,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobileapplication.R
-import kotlinx.android.synthetic.main.item_row_tugas_akhir.view.*
 
-class PostAdapter(private val list: ArrayList<PostResponse>, private var listener: OnItemClickListener? = null): RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
+class PostAdapter(private val list: ArrayList<TugasAkhir>, private var listener: OnItemClickListener? = null): RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
 
     inner class PostViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        private val imageView: ImageView = itemView.findViewById(R.id.imageViewContent)
         private val tvTitle: TextView = itemView.findViewById(R.id.title)
         private val tvJurusan: TextView = itemView.findViewById(R.id.jurusan)
 
@@ -24,12 +21,10 @@ class PostAdapter(private val list: ArrayList<PostResponse>, private var listene
             }
         }
 
-        fun bind(postResponse: PostResponse){
+        fun bind(getTugasAkhir: TugasAkhir){
             with(itemView){
-                tvTitle.text = postResponse.title
-                Log.d("id", postResponse.id.toString())
-                tvJurusan.text = postResponse.text
-                Log.d("Text", postResponse.text.toString())
+                tvTitle.text = getTugasAkhir.judul
+                tvJurusan.text = getTugasAkhir.id.toString()
             }
         }
     }

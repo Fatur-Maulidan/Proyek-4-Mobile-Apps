@@ -2,9 +2,7 @@ package Retrofit
 
 import Model.*
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface ApiEndpoint {
     @POST("auth/login")
@@ -17,8 +15,11 @@ interface ApiEndpoint {
         @Body mahasiswaAktif: MahasiswaAktif
     ): Call<ResponseMessage>
 
-    @GET("posts")
-    fun getPosts(): Call<ArrayList<PostResponse>>
+    @GET("tugas-akhir")
+    fun getTugasAkhir(@Header("Authorization") authToken: String): Call<ArrayList<TugasAkhir>>
+
+    @GET("tugas-akhir/{id}")
+    fun getTugasAkhirById(@Header("Authorization") authToken: String, @Path("id") id: Int): Call<ArrayList<TugasAkhir>>
 
     @POST("auth/forgot-password")
     fun forgotPassword(@Body requestBody: ForgotPasswordRequest): Call<MessageResponse>

@@ -2,7 +2,8 @@ package com.example.mobileapplication
 
 import CustomClass.PostAdapter
 import CustomInterface.RecyclerViewInterface
-import Model.PostResponse
+import KeyStore.Preferences
+import Model.TugasAkhir
 import Retrofit.ApiEndpoint
 import Retrofit.ApiService
 import android.content.Intent
@@ -13,7 +14,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.mobileapplication.R
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_lend.*
 import retrofit2.Call
@@ -34,8 +34,9 @@ class Lend : Fragment(), RecyclerViewInterface{
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private val list = ArrayList<PostResponse>()
+    private val list = ArrayList<TugasAkhir>()
     private lateinit var varBtnTambah: Button
+    private val preferences = Preferences()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,18 +93,17 @@ class Lend : Fragment(), RecyclerViewInterface{
         contentPeminjaman.layoutManager = LinearLayoutManager(context)
 
         val apiService = ApiService().endPoint().create(ApiEndpoint::class.java)
-        apiService.getPosts().enqueue(object : Callback<ArrayList<PostResponse>> {
+        apiService.getTugasAkhir("Bearer " + context?.let { preferences.getToken(it) }).enqueue(object : Callback<ArrayList<TugasAkhir>> {
             override fun onResponse(
-                call: Call<ArrayList<PostResponse>>,
-                response: Response<ArrayList<PostResponse>>
+                call: Call<ArrayList<TugasAkhir>>,
+                response: Response<ArrayList<TugasAkhir>>
             ) {
-                val responseCode: String = response.code().toString()
                 response.body()?.let { list.addAll(it) }
                 val adapter = PostAdapter(list)
                 contentPeminjaman.adapter = adapter
             }
 
-            override fun onFailure(call: Call<ArrayList<PostResponse>>, t: Throwable) {
+            override fun onFailure(call: Call<ArrayList<TugasAkhir>>, t: Throwable) {
 
             }
         })

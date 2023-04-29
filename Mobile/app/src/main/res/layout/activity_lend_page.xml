@@ -75,107 +75,48 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent">
 
-                <!-- Field untuk Jurusan -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:orientation="vertical">
-
-                    <Spinner
-                        android:id="@+id/spinnerJurusan"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:background="@drawable/spinner_custom_selector"/>
+                    android:orientation="vertical"
+                    android:background="#FFFF00"
+                    android:gravity="center">
 
                     <TextView
-                        android:id="@+id/textViewJurusanHandle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="2dp"
+                        android:text="Perhatian"
+                        android:textSize="30dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:textColor="@color/black"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Untuk melakukan peminjaman diharapkan sudah memiliki pembimbing dan tugas akhir anda sudah disetujui"
                         android:fontFamily="@font/poppins_regular"
-                        android:paddingLeft="5dp"
-                        android:textColor="#DC2626" />
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:textColor="@color/black"/>
 
                 </LinearLayout>
 
-                <!-- Field untuk Program Studi -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:orientation="vertical">
-
-                    <Spinner
-                        android:id="@+id/spinnerProgramStudi"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:background="@drawable/spinner_custom_selector"/>
+                    android:orientation="vertical"
+                    android:background="#FFFF00"
+                    android:gravity="right">
 
                     <TextView
-                        android:id="@+id/textViewProgramStudiHandle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="2dp"
+                        android:text="Download Formulir"
                         android:fontFamily="@font/poppins_regular"
-                        android:paddingLeft="5dp"
-                        android:textColor="#DC2626" />
-
-                </LinearLayout>
-
-                <!-- Field untuk Angkatan -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:orientation="vertical">
-
-                    <Spinner
-                        android:id="@+id/spinnerAngkatan"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:background="@drawable/spinner_custom_selector"/>
-
-                    <TextView
-                        android:id="@+id/textViewAngkatanHandle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="2dp"
-                        android:fontFamily="@font/poppins_regular"
-                        android:paddingLeft="5dp"
-                        android:textColor="#DC2626" />
-
-                </LinearLayout>
-
-                <!-- Field untuk Judul Tugas Akhir -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:orientation="vertical">
-
-                    <Spinner
-                        android:id="@+id/spinnerJudulTA"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:background="@drawable/spinner_custom_selector"/>
-
-                    <TextView
-                        android:id="@+id/textViewJudulTA"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="2dp"
-                        android:fontFamily="@font/poppins_regular"
-                        android:paddingLeft="5dp"
-                        android:textColor="#DC2626" />
+                        android:layout_marginRight="40dp"
+                        android:clickable="true"
+                        android:id="@+id/textViewDownloadForm"
+                        android:textColor="@drawable/font_custom_selector"/>
 
                 </LinearLayout>
 
@@ -191,7 +132,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="TTD Kajur"
+                        android:text="Foto Formulir"
                         android:fontFamily="@font/poppins_bold"
                         android:textSize="22dp"
                         android:layout_marginTop="10dp"

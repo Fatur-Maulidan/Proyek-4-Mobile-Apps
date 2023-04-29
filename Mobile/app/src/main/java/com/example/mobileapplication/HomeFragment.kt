@@ -2,17 +2,16 @@ package com.example.mobileapplication
 
 import CustomClass.PostAdapter
 import CustomInterface.RecyclerViewInterface
-import Model.PostResponse
+import KeyStore.Preferences
+import Model.TugasAkhir
 import Retrofit.ApiEndpoint
 import Retrofit.ApiService
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_home.*
 import retrofit2.Call
@@ -33,7 +32,8 @@ class Home : Fragment(), RecyclerViewInterface {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private val list = ArrayList<PostResponse>()
+    private val list = ArrayList<TugasAkhir>()
+    private val preferences = Preferences()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,10 +54,10 @@ class Home : Fragment(), RecyclerViewInterface {
         contentView.layoutManager = LinearLayoutManager(context)
 
         val apiService = ApiService().endPoint().create(ApiEndpoint::class.java)
-        apiService.getPosts().enqueue(object : Callback<ArrayList<PostResponse>> {
+        apiService.getTugasAkhir("Bearer " + context?.let { preferences.getToken(it) }).enqueue(object : Callback<ArrayList<TugasAkhir>> {
             override fun onResponse(
-                call: Call<ArrayList<PostResponse>>,
-                response: Response<ArrayList<PostResponse>>
+                call: Call<ArrayList<TugasAkhir>>,
+                response: Response<ArrayList<TugasAkhir>>
             ) {
                 if(response.isSuccessful){
                     val adapter = PostAdapter(response.body()!!)
@@ -65,8 +65,8 @@ class Home : Fragment(), RecyclerViewInterface {
                         override fun onItemClick(position: Int) {
                             val clickedPosition = response.body()?.get(position)
                             val intent = Intent(activity, FinalTaskPageActivity::class.java)
-                            intent.putExtra("title", clickedPosition?.title)
-                            intent.putExtra("text", clickedPosition?.text)
+                            intent.putExtra("title", clickedPosition?.judul)
+                            intent.putExtra("text", clickedPosition?.id)
                             startActivity(intent)
                         }
                     })
@@ -74,7 +74,7 @@ class Home : Fragment(), RecyclerViewInterface {
                 }
             }
 
-            override fun onFailure(call: Call<ArrayList<PostResponse>>, t: Throwable) {
+            override fun onFailure(call: Call<ArrayList<TugasAkhir>>, t: Throwable) {
 
             }
         })

@@ -12,15 +12,6 @@ class MahasiswaAktif{
     @field:SerializedName("nama")
     var nama: String? = null
 
-    @field:SerializedName("jurusan")
-    var jurusan: String? = null
-
-    @field:SerializedName("program_studi")
-    var program_studi: String? = null
-
-    @field:SerializedName("angkatan")
-    var angkatan: String? = null
-
     @field:SerializedName("email")
     var email: String? = null
 
