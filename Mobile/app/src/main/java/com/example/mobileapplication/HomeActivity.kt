@@ -2,6 +2,7 @@ package com.example.mobileapplication
 
 import CustomClass.DispatchTouchEvent
 import CustomInterface.RecyclerViewInterface
+import KeyStore.Preferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -15,13 +16,28 @@ class HomeActivity : DispatchTouchEvent() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+        var preferences = Preferences()
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        replaceFragment(Home())
+        if(preferences?.getJurusan(applicationContext) != null){
+            replaceFragment(Home())
+        } else if (preferences?.getJurusan(applicationContext) == null){
+            replaceFragment(HomeFragmentFilterJurusan())
+        } else {
+            replaceFragment(HomeFragmentFilterProdi())
+        }
+
 
         binding.bottomNavBar.setOnItemSelectedListener {
             when (it.itemId) {
-                R.id.homeBotNavBar -> replaceFragment(Home())
+                R.id.homeBotNavBar ->
+                    if(preferences?.getJurusan(applicationContext) != null){
+                        replaceFragment(Home())
+                    } else if (preferences?.getJurusan(applicationContext) == null){
+                        replaceFragment(Home())
+                    } else {
+                        replaceFragment(HomeFragmentFilterProdi())
+                    }
                 R.id.peminjamanBotNavBar -> replaceFragment(Lend())
 
                 else -> {

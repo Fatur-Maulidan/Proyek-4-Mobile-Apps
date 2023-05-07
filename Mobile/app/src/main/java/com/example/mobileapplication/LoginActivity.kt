@@ -11,8 +11,14 @@ import Retrofit.ApiEndpoint
 import Retrofit.ApiService
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.*
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,13 +29,16 @@ import java.io.FileOutputStream
 class LoginActivity : DispatchTouchEvent(), ExitApps {
     val preferences = Preferences()
     val cryptoManager = CryptoManager()
+    private lateinit var loadingDialog: LoadingDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+//      Deklarasi Class
         val customLayout = CustomLayout(applicationContext)
         val fileHandler = FileHandler()
+        loadingDialog = LoadingDialog(this)
 
 //      Deklarasi Variabel dari Layout
         val varEtNim: EditText = findViewById(R.id.editTextNIM)
@@ -52,24 +61,26 @@ class LoginActivity : DispatchTouchEvent(), ExitApps {
         val varImgTopLogin: ImageView = findViewById(R.id.image)
 
 //      Fungsi untuk resize imageView menjadi lebih dinamis diikuti dengan ratio yang ada
-//--> Di Bagian ini masih test
         customLayout.resizeAndSetImage(varImgTopLogin, R.drawable.login_page_ellipse)
-//-->
 
 //      Ketika button masuk diklik
         varBtnMasuk.setOnClickListener(View.OnClickListener {
             if(!varEtNim.getText().toString().equals("") && !varEtPassword.getText().toString().equals("")) {
-                loginAuth(loginForm(varEtNim.text.toString(),varEtPassword.text.toString()), fileHandler.checkFileIsExits(File(filesDir, "secret.txt")))
-                customLayout.setTextViewNull(varTvNimHandle,varTvPasswordHandle)
-            }
+                loadingDialog.startLoadingDialog()
+                var handler = Handler(Looper.getMainLooper())
+                handler.postDelayed({
+                    lifecycleScope.launch {
+                        val response = async { loginAuth(loginForm(varEtNim.text.toString(),
+                            varEtPassword.text.toString()), fileHandler.checkFileIsExits(File(filesDir, "secret.txt"))) }.await()
+                        customLayout.setTextViewNull(varTvNimHandle, varTvPasswordHandle)
+                        loadingDialog.dismissDialog()
+                    }
+                    }, 5000)
+                }
             else if(varEtNim.text.isEmpty() || varEtPassword.text.isEmpty()) {
                 when {!varEtNim.text.isEmpty() -> {varTvNimHandle.text = null} else -> {varTvNimHandle.text = "Nim harus diisi"}}
                 when {!varEtPassword.text.isEmpty() -> {varTvPasswordHandle.text = null} else -> {varTvPasswordHandle.text = "Kata sandi harus diisi"}}
                 customLayout.showCustomToast("Kolom NIM dan Kata Sandi Wajib Diisi!", R.layout.toast_custom_layout_failed)
-            }
-            else{
-                customLayout.setTextViewNull(varTvNimHandle,varTvPasswordHandle)
-                customLayout.showCustomToast("Akun tidak terdaftar",R.layout.toast_custom_layout_failed)
             }
         })
 
@@ -99,7 +110,8 @@ class LoginActivity : DispatchTouchEvent(), ExitApps {
     }
 
 //  Authentikasi untuk proses login
-    private fun loginAuth(mahasiswaAktif: MahasiswaAktif, fos: FileOutputStream){
+    private suspend fun loginAuth(mahasiswaAktif: MahasiswaAktif, fos: FileOutputStream):Boolean {
+        val deferred = CompletableDeferred<Boolean>()
         val customLayout = CustomLayout(applicationContext)
         val apiService = ApiService().endPoint().create(ApiEndpoint::class.java)
         apiService.postLogin(mahasiswaAktif).enqueue(object :
@@ -114,16 +126,20 @@ class LoginActivity : DispatchTouchEvent(), ExitApps {
                             outputStream = fos
                         ).decodeToString()
                     }
+                    deferred.complete(true)
                     customLayout.showCustomToast(mahasiswaResponse?.message.toString(),R.layout.toast_custom_layout_success)
                     startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
                     finishAffinity()
                 } else {
+                    deferred.complete(false)
                     customLayout.showCustomToast("Akun tidak terdaftar",R.layout.toast_custom_layout_failed)
                 }
             }
             override fun onFailure(call: Call<ResponseMahasiswaAktif>, t: Throwable) {
+                deferred.complete(false)
                 customLayout.showCustomToast(t.localizedMessage,R.layout.toast_custom_layout_failed)
             }
         })
+    return deferred.await()
     }
 }

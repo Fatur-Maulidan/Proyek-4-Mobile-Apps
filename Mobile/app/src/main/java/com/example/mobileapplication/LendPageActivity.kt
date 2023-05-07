@@ -28,7 +28,6 @@ import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
 
-
 class LendPageActivity : AppCompatActivity() {
     private lateinit var camera: ImageView
     private val cameraRequestId = 1222
@@ -77,17 +76,17 @@ class LendPageActivity : AppCompatActivity() {
         return inputStream.readBytes()
     }
 
-    private fun savePdfToInternalStorage(byteArray: ByteArray, fileName: String, filePath: String) {
-        try {
-            val file = File(filePath)
-            val fileOutputStream = FileOutputStream(file)
-            fileOutputStream.write(byteArray)
-            fileOutputStream.close()
-            Log.d("try", "PDF file saved to internal storage at $filePath")
-        } catch (e: Exception) {
-            Log.e("catch", "Error saving PDF file to internal storage", e)
-        }
-    }
+//    private fun savePdfToInternalStorage(byteArray: ByteArray, fileName: String, filePath: String) {
+//        try {
+//            val file = File(filePath)
+//            val fileOutputStream = FileOutputStream(file)
+//            fileOutputStream.write(byteArray)
+//            fileOutputStream.close()
+//            Log.d("try", "PDF file saved to internal storage at $filePath")
+//        } catch (e: Exception) {
+//            Log.e("catch", "Error saving PDF file to internal storage", e)
+//        }
+//    }
 
     private fun savePdfToExternalStorage(byteArray: ByteArray, fileName: String) {
         try {

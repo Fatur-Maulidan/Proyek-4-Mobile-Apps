@@ -1,10 +1,9 @@
-package CustomClass
+package RecyclerViewData
 
 import Model.TugasAkhir
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobileapplication.R
@@ -12,8 +11,7 @@ import com.example.mobileapplication.R
 class PostAdapter(private val list: ArrayList<TugasAkhir>, private var listener: OnItemClickListener? = null): RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
 
     inner class PostViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        private val tvTitle: TextView = itemView.findViewById(R.id.title)
-        private val tvJurusan: TextView = itemView.findViewById(R.id.jurusan)
+        private val judulDokumen: TextView = itemView.findViewById(R.id.buttonJudulDokumen)
 
         init {
             itemView.setOnClickListener {
@@ -23,8 +21,7 @@ class PostAdapter(private val list: ArrayList<TugasAkhir>, private var listener:
 
         fun bind(getTugasAkhir: TugasAkhir){
             with(itemView){
-                tvTitle.text = getTugasAkhir.judul
-                tvJurusan.text = getTugasAkhir.id.toString()
+                judulDokumen.text = getTugasAkhir.judul
             }
         }
     }

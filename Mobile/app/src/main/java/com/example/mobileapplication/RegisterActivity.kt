@@ -2,15 +2,21 @@ package com.example.mobileapplication
 
 import CustomClass.CustomLayout
 import CustomClass.DispatchTouchEvent
+import CustomClass.LoadingDialog
 import Model.MahasiswaAktif
 import Model.ResponseMessage
 import Retrofit.ApiEndpoint
 import Retrofit.ApiService
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.*
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Callback
@@ -22,6 +28,7 @@ class RegisterActivity : DispatchTouchEvent() {
 
 //      Instansiasi Objek dari class CustomLayout
         val customLayout = CustomLayout(applicationContext)
+        val loadingDialog = LoadingDialog(this)
 
         // editText Variables
         val varEtNama: EditText = findViewById(R.id.editTextNama)
@@ -47,9 +54,7 @@ class RegisterActivity : DispatchTouchEvent() {
         val varImgTopBackground: ImageView = findViewById(R.id.imageTopBackgroundRegister)
 
         // Custom Background Dinamic Ratio
-        //--> Fungsi ini masih uji coba
         customLayout.resizeAndSetImage(varImgTopBackground,R.drawable.register_page_ellipse)
-        //-->
 
         // Icon Toggle hide/unhide password
         customLayout.passwordToggle(varEtKataSandi, varImgViewShowPass1)
@@ -91,7 +96,20 @@ class RegisterActivity : DispatchTouchEvent() {
             if(customLayout.isEditTextInputEmpty(varEtNama,varEtNim,varEtEmail,varEtKataSandi,varEtKonfirmasiKataSandi) == false) customLayout.showCustomToast("Form tidak boleh kosong", R.layout.toast_custom_layout_failed)
             else if (varTvNama.text.toString() == "" && varTvNIM.text.toString() == "" && varTvEmail.text.toString() == "" && varTvKataSandi.text.toString() == "" && varTvKonfirmasiKataSandi.text.toString() == "" && customLayout.isEditTextInputEmpty(varEtNama,varEtNim,varEtEmail,varEtKataSandi,varEtKonfirmasiKataSandi)){
                 if (varEtKataSandi.text.toString() != varEtKonfirmasiKataSandi.text.toString()) varTvKonfirmasiKataSandi.text = "Kata Sandi tidak cocok"
-                else registerAuth(registerForm(varEtNim.text.toString(),varEtNama.text.toString(),varEtEmail.text.toString(),varEtKataSandi.text.toString(), varEtKonfirmasiKataSandi.text.toString()))
+                else {
+                    loadingDialog.startLoadingDialog()
+                    var handler = Handler(Looper.getMainLooper())
+                    handler.postDelayed({
+                        lifecycleScope.launch {
+                            val response = async { registerAuth(registerForm(varEtNim.text.toString(),varEtNama.text.toString(),varEtEmail.text.toString(),varEtKataSandi.text.toString(), varEtKonfirmasiKataSandi.text.toString())) }.await()
+                            if(response){
+                                loadingDialog.dismissDialog()
+                            } else {
+                                loadingDialog.dismissDialog()
+                            }
+                        }
+                    }, 5000)
+                }
             }
         })
     }
@@ -114,14 +132,15 @@ class RegisterActivity : DispatchTouchEvent() {
         return mahasiswaAktif
     }
 
-    private fun registerAuth(mahasiswaAktif: MahasiswaAktif){
+    private suspend fun registerAuth(mahasiswaAktif: MahasiswaAktif): Boolean{
+        val deferred = CompletableDeferred<Boolean>()
         val customLayout = CustomLayout(applicationContext)
         val apiService = ApiService().endPoint().create(ApiEndpoint::class.java)
         apiService.postRegister(mahasiswaAktif).enqueue(object : Callback<ResponseMessage> {
             override fun onResponse(call: Call<ResponseMessage>, response: Response<ResponseMessage>) {
                 var mahasiswaResponse = response.body()
-                Log.d("RegisterActivity",mahasiswaResponse?.message.toString())
                 if (mahasiswaResponse != null) {
+                    deferred.complete(true)
                     customLayout.showCustomToast(
                         mahasiswaResponse?.message.toString(),
                         R.layout.toast_custom_layout_success
@@ -134,13 +153,16 @@ class RegisterActivity : DispatchTouchEvent() {
                     )
                     finishAffinity()
                 } else {
+                    deferred.complete(false)
                     customLayout.showCustomToast("Akun tidak Bisa terdaftar mohon cek kembali",R.layout.toast_custom_layout_failed)
                 }
             }
 
             override fun onFailure(call: Call<ResponseMessage>, t: Throwable) {
+                deferred.complete(false)
                 customLayout.showCustomToast(t.localizedMessage,R.layout.toast_custom_layout_failed)
             }
         })
+        return deferred.await()
     }
 }

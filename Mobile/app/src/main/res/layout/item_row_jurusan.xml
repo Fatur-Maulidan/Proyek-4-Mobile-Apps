@@ -14,7 +14,7 @@
         android:gravity="center">
 
         <Button
-            android:id="@+id/buttonJudulDokumen"
+            android:id="@+id/buttonNamaJurusan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/baseline_arrow_drop_down_24"
@@ -22,7 +22,9 @@
             android:background="@drawable/button_custom_home_selector"
             android:gravity="center_vertical"
             android:textColor="@color/black"
-            android:text="Judul Dokumen"
+            android:text="Nama Jurusan"
+            android:maxLines="1"
+            android:ellipsize="end"
             app:backgroundTint="@null"
             />
 

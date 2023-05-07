@@ -15,6 +15,9 @@ interface ApiEndpoint {
         @Body mahasiswaAktif: MahasiswaAktif
     ): Call<ResponseMessage>
 
+    @GET("jurusan")
+    fun getJurusan(@Header("Authorization") authToken: String): Call<JurusanResponse>
+
     @GET("tugas-akhir")
     fun getTugasAkhir(@Header("Authorization") authToken: String): Call<ArrayList<TugasAkhir>>
 
@@ -23,4 +26,6 @@ interface ApiEndpoint {
 
     @POST("auth/forgot-password")
     fun forgotPassword(@Body requestBody: ForgotPasswordRequest): Call<MessageResponse>
+
+
 }

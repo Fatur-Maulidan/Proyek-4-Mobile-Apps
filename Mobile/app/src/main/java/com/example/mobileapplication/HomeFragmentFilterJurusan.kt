@@ -2,23 +2,25 @@ package com.example.mobileapplication
 
 import CustomClass.LoadingDialog
 import CustomInterface.RecyclerViewInterface
-import KeyStore.Preferences
-import Model.TugasAkhir
-import RecyclerViewData.PostAdapter
-import Retrofit.ApiEndpoint
-import Retrofit.ApiService
+import RecyclerViewData.JurusanAdapter
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_home_filter_jurusan.*
+import KeyStore.Preferences
+import Model.JurusanResponse
+import Retrofit.ApiEndpoint
+import Retrofit.ApiService
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
+import android.widget.Button
+import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -33,12 +35,15 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [Home.newInstance] factory method to
+ * Use the [HomeFragmentFilterJurusa.newInstance] factory method to
  * create an instance of this fragment.
  */
-class Home : Fragment(), RecyclerViewInterface {
+class HomeFragmentFilterJurusan : Fragment(), RecyclerViewInterface {
+
+    private lateinit var varButtonJurusan: Button
     private val preferences = Preferences()
     private lateinit var loadingDialog: LoadingDialog
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,42 +54,29 @@ class Home : Fragment(), RecyclerViewInterface {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_home, container, false)
-
-        var preferences = Preferences()
-
-        var varTextViewJurusan: TextView = view.findViewById(R.id.textViewHomeJurusan)
-        varTextViewJurusan.text = context?.let { preferences.getJurusan(it) }
-
-        return view
+        return inflater.inflate(R.layout.fragment_home_filter_jurusan, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        contentView.setHasFixedSize(true)
-        contentView.layoutManager = LinearLayoutManager(context)
+        recyclerViewJurusan.setHasFixedSize(true)
+        recyclerViewJurusan.layoutManager = LinearLayoutManager(context)
 
         loadingDialog.startLoadingDialog()
         var handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
             lifecycleScope.launch {
-                val response = async { getAllDataFromDatabase() }.await()
+                val response = async { getJurusanFromDatabase() }.await()
                 loadingDialog.dismissDialog()
             }
         }, 5000)
-
-        textViewHomeJurusan.setOnClickListener({
-            val fragmentManager = requireActivity().supportFragmentManager
-            val homeFragmentFilterJurusan = HomeFragmentFilterJurusan()
-            fragmentManager.beginTransaction().replace(R.id.frame_layout, homeFragmentFilterJurusan).commit()
-        })
     }
 
     companion object {
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            Home().apply {
+            HomeFragmentFilterJurusan().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
@@ -92,33 +84,35 @@ class Home : Fragment(), RecyclerViewInterface {
             }
     }
 
-    private suspend fun getAllDataFromDatabase(): Boolean{
+    private suspend fun getJurusanFromDatabase(): Boolean {
         val deferred = CompletableDeferred<Boolean>()
         val apiService = ApiService().endPoint().create(ApiEndpoint::class.java)
-        apiService.getTugasAkhir("Bearer " + context?.let { preferences.getToken(it) }).enqueue(object : Callback<ArrayList<TugasAkhir>> {
+        apiService.getJurusan("Bearer " + context?.let { preferences.getToken(it) }).enqueue(object : Callback<JurusanResponse>{
             override fun onResponse(
-                call: Call<ArrayList<TugasAkhir>>,
-                response: Response<ArrayList<TugasAkhir>>
+                call: Call<JurusanResponse>,
+                response: Response<JurusanResponse>
             ) {
                 if(response.isSuccessful){
-                    val adapter = PostAdapter(response.body()!!)
-                    adapter.setOnItemClickListener(object : PostAdapter.OnItemClickListener{
-                        override fun onItemClick(position: Int) {
-                            val clickedPosition = response.body()?.get(position)
-                            val intent = Intent(activity, FinalTaskPageActivity::class.java)
-                            intent.putExtra("title", clickedPosition?.judul)
-                            intent.putExtra("text", clickedPosition?.id)
+                    val adapter = JurusanAdapter(response.body())
+                    Log.d("jurusan", adapter.toString())
+                    adapter.setOnItemClickListener(object : JurusanAdapter.OnItemClickListener{
+                        override fun onButtonClick(position: Int) {
+                            val clickedPosition = response.body()?.jurusan?.get(position)
+                            context?.let {
+                                preferences.setJurusan(it, clickedPosition.toString())
+                            }
+                            val intent = Intent(activity, HomeActivity::class.java)
                             startActivity(intent)
                         }
                     })
                     deferred.complete(true)
-                    contentView.adapter = adapter
+                    recyclerViewJurusan.adapter = adapter
                 } else {
                     deferred.complete(false)
                 }
             }
 
-            override fun onFailure(call: Call<ArrayList<TugasAkhir>>, t: Throwable) {
+            override fun onFailure(call: Call<JurusanResponse>, t: Throwable) {
                 deferred.complete(false)
             }
         })
@@ -126,5 +120,6 @@ class Home : Fragment(), RecyclerViewInterface {
     }
 
     override fun onItemClick(position: Int) {
+        TODO("Not yet implemented")
     }
 }
