@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 class ApiService {
-    private val BASE_URL = "http://192.168.1.8:8000/api/"
+    private val BASE_URL = "http://192.168.100.4:8080/api/"
 //  "http://10.50.202.226:8000/api/" -> BASE_URL KAMPUS
 //  "http://10.51.150.192:8000/api/" -> BASE_URL KAMPUS_2
 //  "http://192.168.1.5:8000/api/" -> BASE_URL MAMAH

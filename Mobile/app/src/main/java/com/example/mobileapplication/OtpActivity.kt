@@ -2,64 +2,70 @@ package com.example.mobileapplication
 
 import CustomClass.CustomLayout
 import CustomClass.LoadingDialog
-import Model.ForgotPasswordRequest
-import Model.MessageResponse
+import Model.VerifyOtpRequest
+import Model.VerifyOtpResponse
 import Retrofit.ApiEndpoint
 import Retrofit.ApiService
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.example.mobileapplication.databinding.ActivityForgotPasswordBinding
-import kotlinx.android.synthetic.main.activity_forgot_password.*
+import com.example.mobileapplication.databinding.ActivityOtpBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ForgotPasswordActivity : AppCompatActivity() {
+class OtpActivity : AppCompatActivity() {
     lateinit var customLayout: CustomLayout
-    private lateinit var binding: ActivityForgotPasswordBinding
+    private lateinit var binding: ActivityOtpBinding
     private lateinit var loadingDialog: LoadingDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityForgotPasswordBinding.inflate(layoutInflater)
+        binding = ActivityOtpBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
         customLayout = CustomLayout(applicationContext)
         loadingDialog = LoadingDialog(this)
 
-        binding.btnKirim.setOnClickListener { requestOTP(etEmail.text.toString()) }
+        binding.btnKonfirmasi.setOnClickListener {
+            val otp = binding.etOtp1.text.toString() + binding.etOtp2.text.toString() +
+                    binding.etOtp3.text.toString() + binding.etOtp4.text.toString()
+            verifyOTP(otp)
+        }
     }
 
-    private fun requestOTP(email: String) {
+    private fun verifyOTP(otp: String) {
         loadingDialog.startLoadingDialog()
         val apiService = ApiService().endPoint().create(ApiEndpoint::class.java)
-        val requestBody: ForgotPasswordRequest = ForgotPasswordRequest(email)
+        val requestBody: VerifyOtpRequest = VerifyOtpRequest(otp)
 
-        apiService.forgotPassword(requestBody).enqueue(object: Callback<MessageResponse> {
+        apiService.verifyOtp(requestBody).enqueue(object: Callback<VerifyOtpResponse> {
             override fun onResponse(
-                call: Call<MessageResponse>,
-                response: Response<MessageResponse>
+                call: Call<VerifyOtpResponse>,
+                response: Response<VerifyOtpResponse>
             ) {
                 if (response.isSuccessful) {
                     loadingDialog.dismissDialog()
                     customLayout.showCustomToast(response.body()!!.message,
                         R.layout.toast_custom_layout_success)
-                    Log.d("ForgotPasswordSuccess", response.body()!!.message)
-                    startActivity(Intent(applicationContext, OtpActivity::class.java))
-                } else {
+                    Log.d("OTPSuccess", response.body()!!.message)
+                    val intent = Intent(this@OtpActivity, ResetPasswordActivity::class.java)
+                    intent.putExtra("email", response.body()!!.email)
+                    startActivity(intent)
+                    finish()
+                } else if (response.code() == 404) {
                     loadingDialog.dismissDialog()
-                    customLayout.showCustomToast("Akun tidak terdaftar.",
+                    customLayout.showCustomToast("Kode OTP tidak valid.",
                         R.layout.toast_custom_layout_failed)
                 }
             }
 
-            override fun onFailure(call: Call<MessageResponse>, t: Throwable) {
+            override fun onFailure(call: Call<VerifyOtpResponse>, t: Throwable) {
                 loadingDialog.dismissDialog()
                 customLayout.showCustomToast(t.localizedMessage,R.layout.toast_custom_layout_failed)
-                Log.d("ForgotPasswordFailed", t.localizedMessage)
+                Log.d("OTPFailed", t.localizedMessage)
             }
         })
     }

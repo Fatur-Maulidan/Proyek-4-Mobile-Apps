@@ -27,5 +27,9 @@ interface ApiEndpoint {
     @POST("auth/forgot-password")
     fun forgotPassword(@Body requestBody: ForgotPasswordRequest): Call<MessageResponse>
 
+    @POST("auth/verify-otp")
+    fun verifyOtp(@Body requestBody: VerifyOtpRequest): Call<VerifyOtpResponse>
 
+    @POST("auth/reset-password")
+    fun resetPassword(@Body requestBody: ResetPasswordRequest): Call<MessageResponse>
 }
