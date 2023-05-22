@@ -64,8 +64,19 @@
             android:text="Teknik Komputer dan Informatika"
             android:fontFamily="@font/poppins_regular"
             android:clickable="true"
-            android:textSize="14dp"
+            android:textSize="18dp"
             android:id="@+id/textViewHomeJurusan"
+            android:textColor="@drawable/font_custom_home_selector"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Teknik Sipil"
+            android:fontFamily="@font/poppins_regular"
+            android:clickable="true"
+            android:textSize="14dp"
+            android:id="@+id/textViewHomeProgramStudi"
             android:textColor="@drawable/font_custom_home_selector"
             />
 

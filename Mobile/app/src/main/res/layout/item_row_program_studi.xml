@@ -23,6 +23,9 @@
             android:gravity="center_vertical"
             android:textColor="@color/black"
             android:text="Nama Program Studi"
+            android:textSize="12dp"
+            android:maxLines="1"
+            android:ellipsize="end"
             app:backgroundTint="@null"
             />
     </LinearLayout>

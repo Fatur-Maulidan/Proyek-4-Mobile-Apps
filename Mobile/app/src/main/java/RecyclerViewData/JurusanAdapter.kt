@@ -8,9 +8,8 @@ import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobileapplication.R
 
-class JurusanAdapter(private val list: JurusanResponse?, private var listener: OnItemClickListener? = null): RecyclerView.Adapter<JurusanAdapter.JurusanViewHolder>() {
-    private val jurusanList = list?.jurusan ?: emptyList()
-
+class JurusanAdapter(private val list: List<String>?, private var listener: OnItemClickListener? = null): RecyclerView.Adapter<JurusanAdapter.JurusanViewHolder>() {
+    private val jurusanList = list?: emptyList()
 
     inner class JurusanViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val varButtonJurusan: Button = itemView.findViewById(R.id.buttonNamaJurusan)

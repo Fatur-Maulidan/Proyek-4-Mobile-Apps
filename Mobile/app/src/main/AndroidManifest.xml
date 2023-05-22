@@ -15,17 +15,29 @@
         android:theme="@style/Theme.MobileApplication"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".LendPageActivity"
+            android:name=".ReadPdfActivity"
             android:exported="true"
             android:screenOrientation="portrait"/>
+        <provider
+            android:authorities="com.example.mobileapplication.fileprovider"
+            android:name="androidx.core.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider_path"/>
+        </provider>
+        <activity
+            android:name=".LendPageActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".FinalTaskPageActivity"
             android:exported="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".HomeActivity"
             android:exported="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ResetPasswordActivity"
             android:exported="true"
@@ -51,6 +63,10 @@
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".LoginActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".SplashScreen"
             android:exported="true"
             android:screenOrientation="portrait">
@@ -60,10 +76,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".LoginActivity"
-            android:exported="true"
-            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

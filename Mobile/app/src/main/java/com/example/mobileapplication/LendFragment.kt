@@ -5,6 +5,7 @@ import RecyclerViewData.JurusanAdapter
 import CustomInterface.RecyclerViewInterface
 import KeyStore.Preferences
 import Model.TugasAkhir
+import Model.TugasAkhirResponse
 import RecyclerViewData.PostAdapter
 import Retrofit.ApiEndpoint
 import Retrofit.ApiService
@@ -39,7 +40,6 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class Lend : Fragment(), RecyclerViewInterface{
-    private val list = ArrayList<TugasAkhir>()
     private lateinit var varBtnTambah: Button
     private val preferences = Preferences()
     private lateinit var loadingDialog: LoadingDialog
@@ -90,7 +90,7 @@ class Lend : Fragment(), RecyclerViewInterface{
         var handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
             lifecycleScope.launch {
-                val response = async { getAllDataFromDatabase() }.await()
+                val response = async { getAllDataFromDatabase() }
                 loadingDialog.dismissDialog()
             }
         }, 5000)
@@ -99,25 +99,28 @@ class Lend : Fragment(), RecyclerViewInterface{
     private suspend fun getAllDataFromDatabase(): Boolean{
         val deferred = CompletableDeferred<Boolean>()
         val apiService = ApiService().endPoint().create(ApiEndpoint::class.java)
-        apiService.getTugasAkhir("Bearer " + context?.let { preferences.getToken(it) }).enqueue(object : Callback<ArrayList<TugasAkhir>> {
-            override fun onResponse(
-                call: Call<ArrayList<TugasAkhir>>,
-                response: Response<ArrayList<TugasAkhir>>
-            ) {
-                if(response.isSuccessful){
-                    deferred.complete(true)
-                    response.body()?.let { list.addAll(it) }
-                    val adapter = PostAdapter(list)
-                    contentPeminjaman.adapter = adapter
-                } else {
-                    deferred.complete(false)
-                }
-            }
+        context?.let {
+            preferences.getProdiId(it)?.let {
+                apiService.getTugasAkhir("Bearer " + context?.let { preferences.getToken(it) }, it).enqueue(object : Callback<ArrayList<TugasAkhirResponse>> {
+                    override fun onResponse(
+                        call: Call<ArrayList<TugasAkhirResponse>>,
+                        response: Response<ArrayList<TugasAkhirResponse>>
+                    ) {
+                        if(response.isSuccessful){
+                            val adapter = PostAdapter(response.body()!!)
+                            contentPeminjaman.adapter = adapter
+                            deferred.complete(true)
+                        } else {
+                            deferred.complete(false)
+                        }
+                    }
 
-            override fun onFailure(call: Call<ArrayList<TugasAkhir>>, t: Throwable) {
-                deferred.complete(false)
+                    override fun onFailure(call: Call<ArrayList<TugasAkhirResponse>>, t: Throwable) {
+                        deferred.complete(false)
+                    }
+                })
             }
-        })
+        }
         return deferred.await()
     }
 

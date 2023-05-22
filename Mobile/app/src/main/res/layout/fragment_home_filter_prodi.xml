@@ -61,8 +61,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="#FFFFFF"
-        android:layout_margin="@android:dimen/app_icon_size"
-        android:id="@+id/contentView"
+        android:layout_margin="20dp"
+        android:id="@+id/recyclerViewProgramStudi"
         app:layout_constraintTop_toBottomOf="@+id/header"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:listitem="@layout/item_row_program_studi">

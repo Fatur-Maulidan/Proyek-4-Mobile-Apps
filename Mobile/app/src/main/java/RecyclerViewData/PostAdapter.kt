@@ -1,33 +1,34 @@
 package RecyclerViewData
 
-import Model.TugasAkhir
+import Model.TugasAkhirResponse
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobileapplication.R
 
-class PostAdapter(private val list: ArrayList<TugasAkhir>, private var listener: OnItemClickListener? = null): RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
+class PostAdapter(private val list: List<TugasAkhirResponse>?, private var listener: OnItemClickListener? = null): RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
+    private val tugasAkhirList = list?: emptyList()
 
     inner class PostViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        private val judulDokumen: TextView = itemView.findViewById(R.id.buttonJudulDokumen)
+        val varButtonJudulDokumen: Button = itemView.findViewById(R.id.buttonJudulDokumen)
 
         init {
             itemView.setOnClickListener {
-                listener?.onItemClick(adapterPosition)
+                listener?.onButtonClick(adapterPosition)
             }
         }
 
-        fun bind(getTugasAkhir: TugasAkhir){
+        fun bind(tugasAkhirResponse: TugasAkhirResponse){
             with(itemView){
-                judulDokumen.text = getTugasAkhir.judul
+                varButtonJudulDokumen.text = tugasAkhirResponse.tugas_akhir?.judul
             }
         }
     }
 
     interface OnItemClickListener {
-        fun onItemClick(position: Int)
+        fun onButtonClick(position: Int)
     }
 
     fun setOnItemClickListener(listener: OnItemClickListener) {
@@ -40,8 +41,16 @@ class PostAdapter(private val list: ArrayList<TugasAkhir>, private var listener:
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        return holder.bind(list[position])
+        val currentData = tugasAkhirList[position]
+
+        holder.varButtonJudulDokumen.text = currentData?.tugas_akhir?.judul
+
+        // Mengatur aksi pada button ketika di klik
+        holder.varButtonJudulDokumen.setOnClickListener {
+            // Memanggil fungsi onButtonClick pada listener
+            listener?.onButtonClick(position)
+        }
     }
 
-    override fun getItemCount(): Int = list.size
+    override fun getItemCount(): Int = tugasAkhirList.size
 }

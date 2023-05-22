@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home_filter_jurusan.*
 import KeyStore.Preferences
-import Model.JurusanResponse
 import Retrofit.ApiEndpoint
 import Retrofit.ApiService
 import android.os.Handler
@@ -24,9 +23,6 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -38,9 +34,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [HomeFragmentFilterJurusa.newInstance] factory method to
  * create an instance of this fragment.
  */
-class HomeFragmentFilterJurusan : Fragment(), RecyclerViewInterface {
-
-    private lateinit var varButtonJurusan: Button
+class HomeFragmentFilterJurusan : Fragment() {
     private val preferences = Preferences()
     private lateinit var loadingDialog: LoadingDialog
 
@@ -87,39 +81,25 @@ class HomeFragmentFilterJurusan : Fragment(), RecyclerViewInterface {
     private suspend fun getJurusanFromDatabase(): Boolean {
         val deferred = CompletableDeferred<Boolean>()
         val apiService = ApiService().endPoint().create(ApiEndpoint::class.java)
-        apiService.getJurusan("Bearer " + context?.let { preferences.getToken(it) }).enqueue(object : Callback<JurusanResponse>{
-            override fun onResponse(
-                call: Call<JurusanResponse>,
-                response: Response<JurusanResponse>
-            ) {
-                if(response.isSuccessful){
-                    val adapter = JurusanAdapter(response.body())
-                    Log.d("jurusan", adapter.toString())
-                    adapter.setOnItemClickListener(object : JurusanAdapter.OnItemClickListener{
-                        override fun onButtonClick(position: Int) {
-                            val clickedPosition = response.body()?.jurusan?.get(position)
-                            context?.let {
-                                preferences.setJurusan(it, clickedPosition.toString())
-                            }
-                            val intent = Intent(activity, HomeActivity::class.java)
-                            startActivity(intent)
-                        }
-                    })
-                    deferred.complete(true)
-                    recyclerViewJurusan.adapter = adapter
-                } else {
-                    deferred.complete(false)
+        val response = apiService.getJurusan("Bearer " + context?.let { preferences.getToken(it) })
+        if (response.isSuccessful) {
+            val adapter = JurusanAdapter(response.body())
+            adapter.setOnItemClickListener(object : JurusanAdapter.OnItemClickListener {
+                override fun onButtonClick(position: Int) {
+                    val clickedPosition = response.body()?.get(position)
+                    context?.let {
+                        preferences.setJurusan(it, clickedPosition.toString())
+                    }
+                    val fragmentManager = requireActivity().supportFragmentManager
+                    val homeFragmentFilterProdi = HomeFragmentFilterProdi()
+                    fragmentManager.beginTransaction().replace(R.id.frame_layout, homeFragmentFilterProdi).commit()
                 }
-            }
-
-            override fun onFailure(call: Call<JurusanResponse>, t: Throwable) {
-                deferred.complete(false)
-            }
-        })
+            })
+            deferred.complete(true)
+            recyclerViewJurusan.adapter = adapter
+        } else {
+            deferred.complete(false)
+        }
         return deferred.await()
-    }
-
-    override fun onItemClick(position: Int) {
-        TODO("Not yet implemented")
     }
 }

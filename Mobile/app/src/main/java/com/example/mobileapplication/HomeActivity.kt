@@ -19,24 +19,28 @@ class HomeActivity : DispatchTouchEvent() {
         var preferences = Preferences()
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        if(preferences?.getJurusan(applicationContext) != null){
+        if(preferences?.getJurusan(applicationContext) != null && preferences?.getProdi(applicationContext) != null){
             replaceFragment(Home())
         } else if (preferences?.getJurusan(applicationContext) == null){
             replaceFragment(HomeFragmentFilterJurusan())
-        } else {
+        } else if (preferences?.getJurusan(applicationContext) != null && preferences?.getJurusan(applicationContext) == null){
             replaceFragment(HomeFragmentFilterProdi())
+        } else {
+            replaceFragment(HomeFragmentFilterJurusan())
         }
 
 
         binding.bottomNavBar.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.homeBotNavBar ->
-                    if(preferences?.getJurusan(applicationContext) != null){
+                    if(preferences?.getJurusan(applicationContext) != null && preferences?.getProdi(applicationContext) != null){
                         replaceFragment(Home())
                     } else if (preferences?.getJurusan(applicationContext) == null){
-                        replaceFragment(Home())
-                    } else {
+                        replaceFragment(HomeFragmentFilterJurusan())
+                    } else if (preferences?.getJurusan(applicationContext) != null && preferences?.getProdi(applicationContext) == null){
                         replaceFragment(HomeFragmentFilterProdi())
+                    } else {
+                        replaceFragment(HomeFragmentFilterJurusan())
                     }
                 R.id.peminjamanBotNavBar -> replaceFragment(Lend())
 

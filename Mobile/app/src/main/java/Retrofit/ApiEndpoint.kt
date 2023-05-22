@@ -1,7 +1,9 @@
 package Retrofit
 
 import Model.*
+import okhttp3.ResponseBody
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiEndpoint {
@@ -16,16 +18,20 @@ interface ApiEndpoint {
     ): Call<ResponseMessage>
 
     @GET("jurusan")
-    fun getJurusan(@Header("Authorization") authToken: String): Call<JurusanResponse>
+    suspend fun getJurusan(@Header("Authorization") token: String): Response<List<String>>
 
-    @GET("tugas-akhir")
-    fun getTugasAkhir(@Header("Authorization") authToken: String): Call<ArrayList<TugasAkhir>>
+    @GET("jurusan/{jurusan}/program-studi")
+    fun getProgramStudi(@Header("Authorization") token: String, @Path("jurusan") jurusan: String): Call<ArrayList<ProgramStudi>>
+
+    @GET("program-studi/{program-studi}/tugas-akhir")
+    fun getTugasAkhir(@Header("Authorization") authToken: String, @Path("program-studi") program: String): Call<ArrayList<TugasAkhirResponse>>
 
     @GET("tugas-akhir/{id}")
-    fun getTugasAkhirById(@Header("Authorization") authToken: String, @Path("id") id: Int): Call<ArrayList<TugasAkhir>>
+    fun getTugasAkhirById(@Header("Authorization") authToken: String, @Path("id") id: String): Call<DetailTugasAkhir>
 
     @POST("auth/forgot-password")
     fun forgotPassword(@Body requestBody: ForgotPasswordRequest): Call<MessageResponse>
 
-
+    @GET
+    fun downloadPdfFile(@Url pdfUrl: String): Call<ResponseBody>
 }

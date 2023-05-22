@@ -88,6 +88,20 @@ class LendPageActivity : AppCompatActivity() {
 //        }
 //    }
 
+//    private fun savePdfToInternalStorage(byteArray: ByteArray, fileName: String, filePath: String) {
+//        try {
+//            val file = File(filePath)
+//            val fileOutputStream = FileOutputStream(file)
+//            openFileOutput(fileName, Context.MODE_PRIVATE).use { fileOutputStream ->
+//                fileOutputStream.write(byteArray)
+//                Log.d("try", "PDF file saved to internal storage as $fileName")
+//                Log.d("try", "PDF file saved to external storage at ${file.absolutePath}")
+//            }
+//        } catch (e: Exception) {
+//            Log.e("catch", "Error saving PDF file to internal storage", e)
+//        }
+//    }
+
     private fun savePdfToExternalStorage(byteArray: ByteArray, fileName: String) {
         try {
             val externalDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
@@ -145,4 +159,12 @@ class LendPageActivity : AppCompatActivity() {
             }
         }
     }
+
+//    private fun downloadPdfFileAsyncInternal(url: String, fileName: String) {
+//        lifecycleScope.launch(Dispatchers.IO) {
+//            val byteArray = downloadPdfFile(url)
+//            savePdfToInternalStorage(byteArray, fileName)
+//            showDownloadCompleteNotification(fileName)
+//        }
+//    }
 }

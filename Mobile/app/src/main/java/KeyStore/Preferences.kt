@@ -7,6 +7,7 @@ class Preferences {
     private val KEY_TOKEN = "KEY_TOKEN"
     private val KEY_JURUSAN = "JURUSAN"
     private val KEY_PRODI = "PRODI"
+    private val KEY_PRODI_ID = "PRODI_ID"
 
     fun setToken(context: Context, token: String) {
         val editor = getSharedPreferences(context).edit()
@@ -36,6 +37,16 @@ class Preferences {
 
     fun getProdi(context: Context): String? {
         return getSharedPreferences(context).getString(KEY_PRODI, null)
+    }
+
+    fun setProdiId(context: Context, prodiId: String) {
+        val editor = getSharedPreferences(context).edit()
+        editor.putString(KEY_PRODI_ID, prodiId)
+        editor.apply()
+    }
+
+    fun getProdiId(context: Context): String? {
+        return getSharedPreferences(context).getString(KEY_PRODI_ID, null)
     }
 
     private fun getSharedPreferences(context: Context): SharedPreferences {
