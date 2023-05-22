@@ -3,7 +3,6 @@ package Retrofit
 import Model.*
 import okhttp3.ResponseBody
 import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiEndpoint {
@@ -18,19 +17,22 @@ interface ApiEndpoint {
     ): Call<ResponseMessage>
 
     @GET("jurusan")
-    suspend fun getJurusan(@Header("Authorization") token: String): Response<List<String>>
+    fun getJurusan(@Header("Authorization") authToken: String): Call<JurusanResponse>
 
-    @GET("jurusan/{jurusan}/program-studi")
-    fun getProgramStudi(@Header("Authorization") token: String, @Path("jurusan") jurusan: String): Call<ArrayList<ProgramStudi>>
-
-    @GET("program-studi/{program-studi}/tugas-akhir")
-    fun getTugasAkhir(@Header("Authorization") authToken: String, @Path("program-studi") program: String): Call<ArrayList<TugasAkhirResponse>>
+    @GET("tugas-akhir")
+    fun getTugasAkhir(@Header("Authorization") authToken: String): Call<ArrayList<TugasAkhir>>
 
     @GET("tugas-akhir/{id}")
-    fun getTugasAkhirById(@Header("Authorization") authToken: String, @Path("id") id: String): Call<DetailTugasAkhir>
+    fun getTugasAkhirById(@Header("Authorization") authToken: String, @Path("id") id: Int): Call<ArrayList<TugasAkhir>>
 
     @POST("auth/forgot-password")
     fun forgotPassword(@Body requestBody: ForgotPasswordRequest): Call<MessageResponse>
+
+    @POST("auth/verify-otp")
+    fun verifyOtp(@Body requestBody: VerifyOtpRequest): Call<VerifyOtpResponse>
+
+    @POST("auth/reset-password")
+    fun resetPassword(@Body requestBody: ResetPasswordRequest): Call<MessageResponse>
 
     @GET
     fun downloadPdfFile(@Url pdfUrl: String): Call<ResponseBody>

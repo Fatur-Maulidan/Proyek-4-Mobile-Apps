@@ -43,7 +43,7 @@
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ForgotPasswordSuccessActivity"
+            android:name=".OtpActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
