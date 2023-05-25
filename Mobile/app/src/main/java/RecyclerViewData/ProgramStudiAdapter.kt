@@ -10,6 +10,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobileapplication.R
 
+// Class ini digunakan untuk menghitung banyaknya data Program Studi dan dimunculkan kedalam tampilan
+// dalam bentuk recycler view
+
 class ProgramStudiAdapter(private val list: ArrayList<ProgramStudi>, private var listener: OnItemClickListener? = null): RecyclerView.Adapter<ProgramStudiAdapter.ProgramStudiViewHolder>() {
 
     inner class ProgramStudiViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
@@ -23,7 +26,7 @@ class ProgramStudiAdapter(private val list: ArrayList<ProgramStudi>, private var
 
         fun bind(getProgramStudi: ProgramStudi){
             with(itemView){
-                varButtonProgramStudi.text = getProgramStudi.nama
+                varButtonProgramStudi.text = getProgramStudi.diploma + " " + getProgramStudi.nama
             }
         }
     }
@@ -44,7 +47,7 @@ class ProgramStudiAdapter(private val list: ArrayList<ProgramStudi>, private var
     override fun onBindViewHolder(holder: ProgramStudiViewHolder, position: Int) {
         var currentData = list[position]
 
-        holder.varButtonProgramStudi.text = currentData.nama
+        holder.varButtonProgramStudi.text = currentData.diploma + " " + currentData.nama
 
         // Mengatur aksi pada button ketika di klik
         holder.varButtonProgramStudi.setOnClickListener {

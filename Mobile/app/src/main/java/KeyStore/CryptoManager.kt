@@ -10,6 +10,8 @@ import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 import javax.crypto.spec.IvParameterSpec
 
+// Class ini digunakan untuk memasukkan sebuah token yang terenkripsi kedalam secret.txt
+
 class CryptoManager {
     private val keyStore = KeyStore.getInstance("AndroidKeyStore").apply{load(null)}
 

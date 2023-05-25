@@ -8,6 +8,9 @@ import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobileapplication.R
 
+// Class ini digunakan untuk menghitung banyaknya data Tugas Akhir yang sudah di filter
+// oleh program studi dan dimunculkan kedalam tampilan dalam bentuk recycler view
+
 class PostAdapter(private val list: List<TugasAkhirResponse>?, private var listener: OnItemClickListener? = null): RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
     private val tugasAkhirList = list?: emptyList()
 
@@ -43,7 +46,9 @@ class PostAdapter(private val list: List<TugasAkhirResponse>?, private var liste
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         val currentData = tugasAkhirList[position]
 
-        holder.varButtonJudulDokumen.text = currentData?.tugas_akhir?.judul
+        if(currentData?.tugas_akhir?.id != null){
+            holder.varButtonJudulDokumen.text = currentData?.tugas_akhir?.judul
+        }
 
         // Mengatur aksi pada button ketika di klik
         holder.varButtonJudulDokumen.setOnClickListener {

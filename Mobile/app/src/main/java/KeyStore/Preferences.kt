@@ -3,6 +3,9 @@ package KeyStore
 import android.content.Context
 import android.content.SharedPreferences
 
+// Class ini merupakan cara untuk memasukkan data pada aplikasi, kelebihannya adalah jika
+// user keluar dari aplikasi maka data akan selalu tetap ada pada Class ini.
+
 class Preferences {
     private val KEY_TOKEN = "KEY_TOKEN"
     private val KEY_JURUSAN = "JURUSAN"

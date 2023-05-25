@@ -8,10 +8,6 @@ import java.util.concurrent.TimeUnit
 
 class ApiService {
     private val BASE_URL = "http://34.101.158.250:8000/api/"
-//  "http://10.50.202.226:8000/api/" -> BASE_URL KAMPUS
-//  "http://10.51.150.192:8000/api/" -> BASE_URL KAMPUS_2
-//  "http://192.168.1.5:8000/api/" -> BASE_URL MAMAH
-//  "https://jsonplaceholder.typicode.com/" -> BASE_URL TEST BODY
 
     fun endPoint(): Retrofit {
         val httpLoggingInterceptor = HttpLoggingInterceptor()

@@ -8,6 +8,9 @@ import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobileapplication.R
 
+// Class ini digunakan untuk menghitung banyaknya data Jurusan dan dimunculkan kedalam tampilan
+// dalam bentuk recycler view
+
 class JurusanAdapter(private val list: List<String>?, private var listener: OnItemClickListener? = null): RecyclerView.Adapter<JurusanAdapter.JurusanViewHolder>() {
     private val jurusanList = list?: emptyList()
 

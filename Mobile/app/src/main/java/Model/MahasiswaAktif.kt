@@ -2,6 +2,8 @@ package Model
 
 import com.google.gson.annotations.SerializedName
 
+// Class model ini digunakan untuk melakukan proses authentikasi
+
 class MahasiswaAktif{
     @SerializedName("nim")
     var nim: String? = null
@@ -19,6 +21,9 @@ class MahasiswaAktif{
     var password_confirmation: String? = null
 }
 
+
+// Class model ini digunakan ketika proses authentikasi berhasil dan akan memberikan
+// responsenya berupa token
 class ResponseMahasiswaAktif {
     @SerializedName("message")
     var message: String? = null
